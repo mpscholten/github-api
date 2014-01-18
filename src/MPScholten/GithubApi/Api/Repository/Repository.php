@@ -31,6 +31,9 @@ class Repository extends AbstractApi
     private $collaboratorsUrl;
     private $keysUrl;
     private $commitsUrl;
+    private $gitUrl;
+    private $sshUrl;
+    private $htmlUrl;
 
     public function populate($data)
     {
@@ -47,6 +50,9 @@ class Repository extends AbstractApi
         $this->collaboratorsUrl = $data['collaborators_url'];
         $this->keysUrl = $data['keys_url'];
         $this->commitsUrl = $data['commits_url'];
+        $this->gitUrl = $data['git_url'];
+        $this->sshUrl = $data['ssh_url'];
+        $this->htmlUrl = $data['html_url'];
 
         // populate relations
         $this->owner = new User($this->client);
@@ -174,12 +180,12 @@ class Repository extends AbstractApi
         return $this->id;
     }
 
-    public function getIsFork()
+    public function isFork()
     {
         return $this->isFork;
     }
 
-    public function getIsPrivate()
+    public function isPrivate()
     {
         return $this->isPrivate;
     }
@@ -193,4 +199,11 @@ class Repository extends AbstractApi
     {
         return $this->owner;
     }
+
+    public function getSshUrl()
+    {
+        return $this->sshUrl;
+    }
+
+
 }
