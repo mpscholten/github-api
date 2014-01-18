@@ -1,0 +1,19 @@
+{
+    "name": "mpscholten/github-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marc Philip Scholten",
+            "email": "marc@pedigital.de"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzle/guzzle": "~3.7",
+        "phpunit/phpunit": "3.7.*",
+        "doctrine/cache": "1.4.*@dev"
+    },
+    "autoload": {
+        "psr-0": {"MPScholten\\": "src/"}
+    }
+}
