@@ -9,7 +9,9 @@ use MPScholten\GithubApi\Api\Repository\Repository;
 
 class CurrentUser extends User
 {
-    private $repositories = [];
+    // relations
+    protected $repositories = [];
+    protected $organizations;
 
     public function __construct(Client $client)
     {
