@@ -24,10 +24,7 @@ class PersonalAccessToken implements AuthenticationMethodInterface
 
     public function onRequestBeforeSend(Event $event)
     {
-        /** @var $request RequestInterface */
         $request = $event['request'];
-
-        //$request->setHeader('x-oauth-basic', $this->accessToken);
-        $request->setAuth('eb11098d515dbd29de148950ce3afacb3472848e');
+        $request->setAuth($this->accessToken);
     }
 }
