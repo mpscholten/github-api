@@ -24,6 +24,7 @@ class RepositoryTest extends AbstractTestCase
         $this->assertEquals(1296269, $repository->getId());
         $this->assertEquals('Hello-World', $repository->getName());
         $this->assertFalse($repository->isPrivate());
+        $this->assertFalse($repository->isFork());
         $this->assertEquals('This your first repo!', $repository->getDescription());
         $this->assertEquals('git@github.com:octocat/Hello-World.git', $repository->getSshUrl());
 
