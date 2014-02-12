@@ -5,6 +5,7 @@ namespace MPScholten\GithubApi\Api;
 
 
 use Guzzle\Http\Client;
+use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
 use MPScholten\GithubApi\ResponseDecoder;
 
@@ -18,7 +19,7 @@ class PaginationIterator implements \Iterator
 
     private $nextRequest;
 
-    public function __construct(Client $client, RequestInterface $request, callable $transformer)
+    public function __construct(ClientInterface $client, RequestInterface $request, callable $transformer)
     {
         $this->client = $client;
         $this->transformer = $transformer;
@@ -62,6 +63,10 @@ class PaginationIterator implements \Iterator
 
     public function loadNext()
     {
+        if(!$this->nextRequest instanceof RequestInterface) {
+            return;
+        }
+
         $response = $this->nextRequest->send();
         foreach(call_user_func($this->transformer, ResponseDecoder::decode($response), $this->client) as $data) {
             $this->storage[] = $data;
@@ -71,6 +76,8 @@ class PaginationIterator implements \Iterator
 
         if($linkHeader) {
             $this->nextRequest = $this->client->get($response->getHeader('Link')->getLink('next')['url']);
+        } else {
+            $this->nextRequest = null;
         }
     }
 }

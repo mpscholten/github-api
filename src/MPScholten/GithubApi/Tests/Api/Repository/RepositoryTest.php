@@ -10,10 +10,12 @@ use MPScholten\GithubApi\Tests\AbstractTestCase;
 class RepositoryTest extends AbstractTestCase
 {
     private $fixture1;
+    private $fixture2;
 
     protected function setUp()
     {
         $this->fixture1 = $this->loadJsonFixture('fixture1.json');
+        $this->fixture2 = $this->loadJsonFixture('fixture2.json');
     }
 
     public function testPopulateWithExampleData()
@@ -27,9 +29,24 @@ class RepositoryTest extends AbstractTestCase
         $this->assertFalse($repository->isFork());
         $this->assertEquals('This your first repo!', $repository->getDescription());
         $this->assertEquals('git@github.com:octocat/Hello-World.git', $repository->getSshUrl());
+        $this->assertEquals('octocat/Hello-World', $repository->getFullName());
+        $this->assertEquals('master', $repository->getDefaultBranch());
 
         $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $repository->getOwner());
         $this->assertEquals('octocat', $repository->getOwner()->getLogin());
+    }
+
+    public function testLazyLoadingCommits()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->fixture2));
+
+        $repository = new Repository($httpClient);
+        $repository->populate($this->fixture1);
+
+        foreach($repository->getCommits() as $commit) {
+            $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Commit', $commit);
+        }
     }
 
 }
