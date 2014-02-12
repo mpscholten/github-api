@@ -19,6 +19,10 @@ class AbstractApi
 
     protected function get($url, $query = [])
     {
+        if (!$this->client) {
+            throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
+        }
+
         $request = $this->client->get($url);
         $request->getQuery()->merge($query);
 
@@ -28,12 +32,20 @@ class AbstractApi
 
     protected function post($url, $payload = [])
     {
+        if (!$this->client) {
+            throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
+        }
+
         $response = $this->client->post($url, null, json_encode($payload));
         return ResponseDecoder::decode($response);
     }
 
     protected function delete($url)
     {
+        if (!$this->client) {
+            throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
+        }
+        
         $response = $this->client->delete($url);
     }
 }

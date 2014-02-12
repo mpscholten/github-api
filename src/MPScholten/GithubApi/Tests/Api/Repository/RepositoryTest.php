@@ -11,11 +11,13 @@ class RepositoryTest extends AbstractTestCase
 {
     private $fixture1;
     private $fixture2;
+    private $fixture3;
 
     protected function setUp()
     {
         $this->fixture1 = $this->loadJsonFixture('fixture1.json');
         $this->fixture2 = $this->loadJsonFixture('fixture2.json');
+        $this->fixture3 = $this->loadJsonFixture('fixture3.json');
     }
 
     public function testPopulateWithExampleData()
@@ -46,6 +48,19 @@ class RepositoryTest extends AbstractTestCase
 
         foreach($repository->getCommits() as $commit) {
             $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Commit', $commit);
+        }
+    }
+
+    public function testLazyLoadingCollaborators()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->fixture3));
+
+        $repository = new Repository($httpClient);
+        $repository->populate($this->fixture1);
+
+        foreach($repository->getCollaborators() as $collaborator) {
+            $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $collaborator);
         }
     }
 
