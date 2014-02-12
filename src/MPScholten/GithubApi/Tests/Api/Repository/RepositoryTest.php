@@ -7,7 +7,7 @@ namespace MPScholten\GithubApi\Tests\Api\Repository;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\Tests\AbstractTestCase;
 
-class RepositoryAbstractTestCase extends AbstractTestCase
+class RepositoryTest extends AbstractTestCase
 {
     private $fixture1;
 
@@ -27,7 +27,7 @@ class RepositoryAbstractTestCase extends AbstractTestCase
         $this->assertEquals('This your first repo!', $repository->getDescription());
 
         $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $repository->getOwner());
-        $this->assertEquals('octocat', $repository->getOwner()->getName());
+        $this->assertEquals('octocat', $repository->getOwner()->getLogin());
     }
 
 }

@@ -32,7 +32,7 @@ class User extends AbstractApi
         $this->gravatarId = $data['gravatar_id'];
         $this->url = $data['url'];
         $this->organizationsUrl = $data['organizations_url'];
-        $this->name = $data['name'];
+        $this->name = isset($data['name']) ? $data['name'] : null;
     }
 
     public function getLogin()
