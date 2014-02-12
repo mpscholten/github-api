@@ -6,7 +6,7 @@ namespace MPScholten\GithubApi\Api;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\RequestInterface;
-use MPScholten\GithubApi\ResponseMediator;
+use MPScholten\GithubApi\ResponseDecoder;
 
 class PaginationIterator implements \Iterator
 {
@@ -63,7 +63,7 @@ class PaginationIterator implements \Iterator
     public function loadNext()
     {
         $response = $this->nextRequest->send();
-        foreach(call_user_func($this->transformer, ResponseMediator::decode($response), $this->client) as $data) {
+        foreach(call_user_func($this->transformer, ResponseDecoder::decode($response), $this->client) as $data) {
             $this->storage[] = $data;
         }
 

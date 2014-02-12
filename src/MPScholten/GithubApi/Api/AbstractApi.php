@@ -5,7 +5,7 @@ namespace MPScholten\GithubApi\Api;
 
 
 use Guzzle\Http\Client;
-use MPScholten\GithubApi\ResponseMediator;
+use MPScholten\GithubApi\ResponseDecoder;
 
 class AbstractApi
 {
@@ -22,13 +22,13 @@ class AbstractApi
         $request->getQuery()->merge($query);
 
         $response = $request->send();
-        return ResponseMediator::decode($response);
+        return ResponseDecoder::decode($response);
     }
 
     protected function post($url, $payload = [])
     {
         $response = $this->client->post($url, null, json_encode($payload));
-        return ResponseMediator::decode($response);
+        return ResponseDecoder::decode($response);
     }
 
     protected function delete($url)
