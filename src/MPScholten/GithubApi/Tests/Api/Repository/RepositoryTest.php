@@ -25,6 +25,7 @@ class RepositoryTest extends AbstractTestCase
         $this->assertEquals('Hello-World', $repository->getName());
         $this->assertFalse($repository->isPrivate());
         $this->assertEquals('This your first repo!', $repository->getDescription());
+        $this->assertEquals('git@github.com:octocat/Hello-World.git', $repository->getSshUrl());
 
         $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $repository->getOwner());
         $this->assertEquals('octocat', $repository->getOwner()->getLogin());
