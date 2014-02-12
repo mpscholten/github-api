@@ -5,13 +5,14 @@ namespace MPScholten\GithubApi\Api;
 
 
 use Guzzle\Http\Client;
+use Guzzle\Http\ClientInterface;
 use MPScholten\GithubApi\ResponseDecoder;
 
 class AbstractApi
 {
     protected $client;
 
-    public function __construct(Client $client = null)
+    public function __construct(ClientInterface $client = null)
     {
         $this->client = $client;
     }

@@ -57,4 +57,11 @@ class Organization extends AbstractApi
 
         return $this->email;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
 }

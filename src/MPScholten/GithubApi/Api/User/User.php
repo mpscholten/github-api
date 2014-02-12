@@ -7,6 +7,7 @@ namespace MPScholten\GithubApi\Api\User;
 use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\Organization\Organization;
 use MPScholten\GithubApi\TemplateUrlGenerator;
+use MPScholten\GithubApi\UrlType;
 
 class User extends AbstractApi
 {
@@ -22,6 +23,8 @@ class User extends AbstractApi
 
     // urls
     private $organizationsUrl;
+
+    private $htmlUrl;
     private $url;
 
     public function populate($data)
@@ -30,9 +33,12 @@ class User extends AbstractApi
         $this->login = $data['login'];
         $this->avatarUrl = $data['avatar_url'];
         $this->gravatarId = $data['gravatar_id'];
-        $this->url = $data['url'];
         $this->organizationsUrl = $data['organizations_url'];
         $this->name = isset($data['name']) ? $data['name'] : null;
+
+        // urls
+        $this->url = $data['url'];
+        $this->htmlUrl = $data['html_url'];
     }
 
     public function getLogin()
@@ -55,9 +61,14 @@ class User extends AbstractApi
         return $this->id;
     }
 
-    public function getUrl()
+    public function getUrl($type = null)
     {
-        return $this->url;
+        switch ($type) {
+            case UrlType::HTML:
+                return $this->htmlUrl;
+            default:
+                return $this->url;
+        }
     }
 
     public function getName()
