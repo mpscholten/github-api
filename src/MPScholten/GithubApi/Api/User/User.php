@@ -65,9 +65,6 @@ class User extends AbstractApi
         return $this->name;
     }
 
-
-
-
     /**
      * @return Organization[]
      */
@@ -85,7 +82,7 @@ class User extends AbstractApi
         $url = TemplateUrlGenerator::generate($this->organizationsUrl, []);
 
         $organizations = [];
-        foreach($this->get($url) as $data) {
+        foreach ($this->get($url) as $data) {
             $organization = new Organization($this->client);
             $organization->populate($data);
 
