@@ -21,6 +21,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->populate($this->fixture1);
 
         $this->assertEquals('octocat', $user->getLogin());
+        $this->assertEquals(1, $user->getId());
     }
 }
  

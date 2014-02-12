@@ -48,6 +48,13 @@ class User extends AbstractApi
         return $this->gravatarId;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+
     /**
      * @return Organization[]
      */
