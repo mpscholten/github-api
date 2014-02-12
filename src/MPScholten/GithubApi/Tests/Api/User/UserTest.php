@@ -5,14 +5,15 @@ namespace MPScholten\GithubApi\Tests\Api\User;
 
 
 use MPScholten\GithubApi\Api\User\User;
+use MPScholten\GithubApi\Tests\AbstractTestCase;
 
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends AbstractTestCase
 {
     private $fixture1;
 
     protected function setUp()
     {
-        $this->fixture1 = json_decode(file_get_contents(__DIR__ . '/fixture1.json'), true);
+        $this->fixture1 = $this->loadJsonFixture('fixture1.json');
     }
 
     public function testPopulateWithExampleData()
