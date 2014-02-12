@@ -12,12 +12,14 @@ class RepositoryTest extends AbstractTestCase
     private $fixture1;
     private $fixture2;
     private $fixture3;
+    private $fixture4;
 
     protected function setUp()
     {
         $this->fixture1 = $this->loadJsonFixture('fixture1.json');
         $this->fixture2 = $this->loadJsonFixture('fixture2.json');
         $this->fixture3 = $this->loadJsonFixture('fixture3.json');
+        $this->fixture4 = $this->loadJsonFixture('fixture4.json');
     }
 
     public function testPopulateWithExampleData()
@@ -46,7 +48,7 @@ class RepositoryTest extends AbstractTestCase
         $repository = new Repository($httpClient);
         $repository->populate($this->fixture1);
 
-        foreach($repository->getCommits() as $commit) {
+        foreach ($repository->getCommits() as $commit) {
             $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Commit', $commit);
         }
     }
@@ -59,9 +61,24 @@ class RepositoryTest extends AbstractTestCase
         $repository = new Repository($httpClient);
         $repository->populate($this->fixture1);
 
-        foreach($repository->getCollaborators() as $collaborator) {
+        foreach ($repository->getCollaborators() as $collaborator) {
             $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $collaborator);
         }
+    }
+
+    public function testLazyLoadingKeys()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->fixture4));
+
+        $repository = new Repository($httpClient);
+        $repository->populate($this->fixture1);
+
+        foreach ($repository->getKeys() as $key) {
+            $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Key', $key);
+        }
+
+        $this->assertEquals($repository->getKeys(), $repository->getDeployKeys(), 'getDeployKeys should return the same as getKeys');
     }
 
 }

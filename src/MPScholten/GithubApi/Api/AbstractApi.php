@@ -45,7 +45,7 @@ class AbstractApi
         if (!$this->client) {
             throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
         }
-        
+
         $response = $this->client->delete($url);
     }
 }
