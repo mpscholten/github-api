@@ -22,6 +22,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('octocat', $user->getLogin());
         $this->assertEquals(1, $user->getId());
+        $this->assertEquals('https://github.com/images/error/octocat_happy.gif', $user->getAvatarUrl());
+        $this->assertEquals('monalisa octocat', $user->getName());
     }
 }
  

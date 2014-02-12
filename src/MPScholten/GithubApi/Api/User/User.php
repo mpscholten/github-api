@@ -18,6 +18,7 @@ class User extends AbstractApi
     private $login;
     private $avatarUrl;
     private $gravatarId;
+    private $name;
 
     // urls
     private $organizationsUrl;
@@ -31,6 +32,7 @@ class User extends AbstractApi
         $this->gravatarId = $data['gravatar_id'];
         $this->url = $data['url'];
         $this->organizationsUrl = $data['organizations_url'];
+        $this->name = $data['name'];
     }
 
     public function getLogin()
@@ -52,6 +54,17 @@ class User extends AbstractApi
     {
         return $this->id;
     }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
 
 
 
