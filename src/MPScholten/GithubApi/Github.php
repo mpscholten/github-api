@@ -11,6 +11,7 @@ use Guzzle\Plugin\Cache\CachePlugin;
 use MPScholten\GithubApi\Api\Search\Search;
 use MPScholten\GithubApi\Api\User\CurrentUser;
 use MPScholten\GithubApi\Auth\AuthenticationMethodInterface;
+use MPScholten\GithubApi\Auth\OAuth;
 
 class Github
 {
@@ -35,6 +36,10 @@ class Github
             $client->addSubscriber($cachePlugin);
         } elseif($cachePath === false) {
             // disable cache if false
+        }
+
+        if(is_string($authenticationMethod)) {
+            $authenticationMethod = new OAuth($authenticationMethod);
         }
 
         return new Github($client, $authenticationMethod);
