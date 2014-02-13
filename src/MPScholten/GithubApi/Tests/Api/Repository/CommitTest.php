@@ -18,4 +18,3 @@ class CommitTest extends AbstractTestCase
         $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $commit->getCommitter());
     }
 }
- 

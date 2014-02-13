@@ -67,7 +67,4 @@ class OrganizationTest extends AbstractTestCase
         $organization->populate($this->fixture2);
         $organization->getUrl('invalid type');
     }
-
-
 }
- 

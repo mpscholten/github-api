@@ -7,7 +7,6 @@ namespace MPScholten\GithubApi\Tests\Auth;
 use Guzzle\Common\Event;
 use Guzzle\Http\Message\Request;
 use MPScholten\GithubApi\Auth\OAuth;
-use MPScholten\GithubApi\Github;
 
 class OAuthTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,4 +22,3 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('example', $request->getQuery()->get('access_token'));
     }
 }
- 

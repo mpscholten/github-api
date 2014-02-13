@@ -79,7 +79,11 @@ class RepositoryTest extends AbstractTestCase
             $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Key', $key);
         }
 
-        $this->assertEquals($repository->getKeys(), $repository->getDeployKeys(), 'getDeployKeys should return the same as getKeys');
+        $this->assertEquals(
+            $repository->getKeys(),
+            $repository->getDeployKeys(),
+            'getDeployKeys should return the same as getKeys'
+        );
     }
 
     public function testAddKey()
@@ -96,6 +100,4 @@ class RepositoryTest extends AbstractTestCase
         $repository->addKey($key);
         $this->assertEquals(1, $key->getId());
     }
-
 }
- 

@@ -4,7 +4,6 @@
 namespace MPScholten\GithubApi\Api;
 
 
-use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
 use MPScholten\GithubApi\ResponseDecoder;
 
@@ -20,7 +19,10 @@ class AbstractApi
     protected function get($url, $query = [])
     {
         if (!$this->client) {
-            throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
+            throw new \RuntimeException(vsprintf(
+                'Did you forget to pass the http-client in the constructor of %s?',
+                get_class($this)
+            ));
         }
 
         $request = $this->client->get($url);
@@ -33,7 +35,10 @@ class AbstractApi
     protected function post($url, $payload = [])
     {
         if (!$this->client) {
-            throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
+            throw new \RuntimeException(vsprintf(
+                'Did you forget to pass the http-client in the constructor of %s?',
+                get_class($this)
+            ));
         }
 
         $response = $this->client->post($url, null, json_encode($payload))->send();
@@ -43,7 +48,10 @@ class AbstractApi
     protected function delete($url)
     {
         if (!$this->client) {
-            throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
+            throw new \RuntimeException(vsprintf(
+                'Did you forget to pass the http-client in the constructor of %s?',
+                get_class($this)
+            ));
         }
 
         $response = $this->client->delete($url);

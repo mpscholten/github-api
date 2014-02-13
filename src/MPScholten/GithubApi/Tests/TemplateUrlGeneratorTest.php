@@ -11,7 +11,11 @@ class TemplateUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function urlDataProvider()
     {
         return [
-            ['https://api.github.com/repos/mpscholten/symfony-docs/collaborators', 'https://api.github.com/repos/mpscholten/symfony-docs/collaborators{/collaborator}', ['collaborator' => null]],
+            [
+                'https://api.github.com/repos/mpscholten/symfony-docs/collaborators',
+                'https://api.github.com/repos/mpscholten/symfony-docs/collaborators{/collaborator}',
+                ['collaborator' => null]
+            ],
         ];
     }
 
@@ -23,4 +27,3 @@ class TemplateUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, TemplateUrlGenerator::generate($url, $data));
     }
 }
- 

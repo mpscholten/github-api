@@ -4,11 +4,8 @@
 namespace MPScholten\GithubApi\Tests\Api\User;
 
 
-use Guzzle\Http\Message\Response;
-use Guzzle\Http\QueryString;
 use MPScholten\GithubApi\Api\User\User;
 use MPScholten\GithubApi\Tests\AbstractTestCase;
-use MPScholten\GithubApi\UrlType;
 
 class UserTest extends AbstractTestCase
 {
@@ -57,4 +54,3 @@ class UserTest extends AbstractTestCase
         $organization->getUrl('invalid type');
     }
 }
- 

@@ -33,9 +33,11 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 
     protected function mockSimpleRequest($httpClientMock, $method, $responseBody)
     {
-        $response = $this->createResponseMockBuilder()->disableOriginalConstructor()->setMethods(['getBody'])->getMock();
+        $response = $this->createResponseMockBuilder()
+            ->disableOriginalConstructor()
+            ->setMethods(['getBody'])
+            ->getMock();
         $request = $this->createRequestMockBuilder()->getMock();
-
 
 
         $request->expects($this->any())->method('getQuery')->will($this->returnValue(new QueryString()));
@@ -45,4 +47,4 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 
         $httpClientMock->expects($this->once())->method($method)->will($this->returnValue($request));
     }
-} 
+}

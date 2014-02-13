@@ -4,7 +4,6 @@
 namespace MPScholten\GithubApi\Api;
 
 
-use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
 use MPScholten\GithubApi\ResponseDecoder;
@@ -27,7 +26,6 @@ class PaginationIterator implements \Iterator
     }
 
 
-
     public function current()
     {
         return $this->storage[$this->position];
@@ -37,7 +35,7 @@ class PaginationIterator implements \Iterator
     {
         $this->position++;
 
-        if(!isset($this->storage[$this->position])) {
+        if (!isset($this->storage[$this->position])) {
             $this->loadNext();
         }
     }
@@ -56,25 +54,25 @@ class PaginationIterator implements \Iterator
     {
         $this->position = 0;
 
-        if(count($this->storage) === 0) {
+        if (count($this->storage) === 0) {
             $this->loadNext();
         }
     }
 
     public function loadNext()
     {
-        if(!$this->nextRequest instanceof RequestInterface) {
+        if (!$this->nextRequest instanceof RequestInterface) {
             return;
         }
 
         $response = $this->nextRequest->send();
-        foreach(call_user_func($this->transformer, ResponseDecoder::decode($response), $this->client) as $data) {
+        foreach (call_user_func($this->transformer, ResponseDecoder::decode($response), $this->client) as $data) {
             $this->storage[] = $data;
         }
 
         $linkHeader = $response->getHeader('Link');
 
-        if($linkHeader) {
+        if ($linkHeader) {
             $this->nextRequest = $this->client->get($response->getHeader('Link')->getLink('next')['url']);
         } else {
             $this->nextRequest = null;

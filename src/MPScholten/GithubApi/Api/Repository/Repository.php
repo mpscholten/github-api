@@ -98,7 +98,7 @@ class Repository extends AbstractApi
      */
     public function getKeys()
     {
-        if($this->keys === null) {
+        if ($this->keys === null) {
             $this->keys = $this->loadKeys();
         }
 
@@ -109,7 +109,7 @@ class Repository extends AbstractApi
     {
         $url = TemplateUrlGenerator::generate($this->keysUrl, ['key_id' => null]);
         $keys = [];
-        foreach($this->get($url) as $data) {
+        foreach ($this->get($url) as $data) {
             $key = new Key($this->client);
             $key->populate($data);
 
@@ -136,11 +136,12 @@ class Repository extends AbstractApi
     protected function loadCommits()
     {
         $client = $this->client;
-        return new PaginationIterator($client,
+        return new PaginationIterator(
+            $client,
             $this->client->get(TemplateUrlGenerator::generate($this->commitsUrl, ['sha' => null])),
-            function($response, $client) {
+            function ($response, $client) {
                 $commits = [];
-                foreach($response as $data) {
+                foreach ($response as $data) {
                     $commit = new Commit($client);
                     $commit->populate($data);
                     $commits[] = $commit;
@@ -158,7 +159,7 @@ class Repository extends AbstractApi
      */
     public function getCommits()
     {
-        if($this->commits === null) {
+        if ($this->commits === null) {
             $this->commits = $this->loadCommits();
         }
 
@@ -245,6 +246,4 @@ class Repository extends AbstractApi
     {
         return $this->sshUrl;
     }
-
-
 }

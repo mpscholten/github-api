@@ -45,8 +45,11 @@ class CurrentUser extends User
     public function getRepositories($type = 'all')
     {
         $validTypes = ['all', 'owner', 'public', 'private', 'member'];
-        if(!in_array($type, $validTypes)) {
-            throw new \InvalidArgumentException(sprintf('Invalid type, expected one of "%s"', implode(', ', $validTypes)));
+        if (!in_array($type, $validTypes)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid type, expected one of "%s"',
+                implode(', ', $validTypes)
+            ));
         }
 
         if (!isset($this->repositories[$type])) {

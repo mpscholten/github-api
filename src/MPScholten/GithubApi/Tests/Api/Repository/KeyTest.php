@@ -31,4 +31,3 @@ class KeyTest extends AbstractTestCase
         $this->assertEquals('my first key', $key->getTitle());
     }
 }
- 

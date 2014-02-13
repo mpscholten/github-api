@@ -8,7 +8,6 @@ use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\Organization\Organization;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\TemplateUrlGenerator;
-use MPScholten\GithubApi\UrlType;
 
 /**
  * @link http://developer.github.com/v3/users/
@@ -95,7 +94,11 @@ class User extends AbstractApi
                 return $this->url;
         }
 
-        throw new \InvalidArgumentException(sprintf('Invalid url type "%s", expected one of "%s"', $type, implode(', ', ['html', 'api'])));
+        throw new \InvalidArgumentException(sprintf(
+            'Invalid url type "%s", expected one of "%s"',
+            $type,
+            implode(', ', ['html', 'api'])
+        ));
     }
 
     /**
@@ -108,7 +111,8 @@ class User extends AbstractApi
 
     /**
      * @link http://developer.github.com/v3/orgs/#list-user-organizations
-     * "List all public organizations for an unauthenticated user. Lists private and public organizations for authenticated users."
+     * List all public organizations for an unauthenticated user.
+     * Lists private and public organizations for authenticated users.
      *
      * @return Organization[] The public organizations the user is member of
      */
@@ -147,8 +151,11 @@ class User extends AbstractApi
     public function getRepositories($type = 'owner')
     {
         $validTypes = ['all', 'owner', 'member'];
-        if(!in_array($type, $validTypes)) {
-            throw new \InvalidArgumentException(sprintf('Invalid type, expected one of "%s"', implode(', ', $validTypes)));
+        if (!in_array($type, $validTypes)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid type, expected one of "%s"',
+                implode(', ', $validTypes)
+            ));
         }
 
         if (!isset($this->repositories[$type])) {
@@ -172,6 +179,4 @@ class User extends AbstractApi
 
         return $repositories;
     }
-
-
 }

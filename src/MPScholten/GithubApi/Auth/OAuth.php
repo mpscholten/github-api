@@ -6,7 +6,6 @@ namespace MPScholten\GithubApi\Auth;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Message\RequestInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class OAuth implements AuthenticationMethodInterface
 {

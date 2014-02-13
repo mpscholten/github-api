@@ -55,5 +55,4 @@ class Key extends AbstractApi
     {
         $this->title = $title;
     }
-
-} 
+}
