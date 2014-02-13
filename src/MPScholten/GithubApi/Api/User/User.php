@@ -61,14 +61,16 @@ class User extends AbstractApi
         return $this->id;
     }
 
-    public function getUrl($type = null)
+    public function getUrl($type = 'html')
     {
         switch ($type) {
-            case UrlType::HTML:
+            case 'html':
                 return $this->htmlUrl;
-            default:
+            case 'api':
                 return $this->url;
         }
+
+        throw new \InvalidArgumentException(vsprintf('Invalid url type "%s", expected one of "%s"', $type, implode(', ', ['html', 'api'])));
     }
 
     public function getName()

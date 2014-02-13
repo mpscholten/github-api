@@ -31,8 +31,8 @@ class UserTest extends AbstractTestCase
         $this->assertEquals('https://github.com/images/error/octocat_happy.gif', $user->getAvatarUrl());
         $this->assertEquals('monalisa octocat', $user->getName());
         $this->assertEquals('somehexcode', $user->getGravatarId());
-        $this->assertEquals('https://api.github.com/users/octocat', $user->getUrl());
-        $this->assertEquals('https://github.com/octocat', $user->getUrl(UrlType::HTML));
+        $this->assertEquals('https://api.github.com/users/octocat', $user->getUrl('api'));
+        $this->assertEquals('https://github.com/octocat', $user->getUrl());
     }
 
     public function testLazyLoadingOrganizations()
