@@ -25,12 +25,9 @@ class Organization extends AbstractApi
         $this->login = $data['login'];
         $this->url = $data['url'];
         $this->avatarUrl = $data['avatar_url'];
-
-        // because if we call /users/{user}/orgs we only get the 3 attributes above, we need to populate the other attributes only if the name is given
-        if (isset($data['name'])) {
-            $this->name = $data['name'];
-            $this->email = $data['email'];
-        }
+        $this->htmlUrl = isset($data['html_url']) ? $data['html_url'] : null;
+        $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->email = isset($data['email']) ? $data['email'] : null;
     }
 
     protected function load()
@@ -84,7 +81,7 @@ class Organization extends AbstractApi
                 return $this->url;
         }
 
-        throw new \InvalidArgumentException(vsprintf('Invalid url type "%s", expected one of "%s"', $type, implode(', ', ['html', 'api'])));
+        throw new \InvalidArgumentException(sprintf('Invalid url type "%s", expected one of "%s"', $type, implode(', ', ['html', 'api'])));
     }
 
     public function getAvatarUrl()

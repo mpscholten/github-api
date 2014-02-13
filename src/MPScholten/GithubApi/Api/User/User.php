@@ -70,7 +70,7 @@ class User extends AbstractApi
                 return $this->url;
         }
 
-        throw new \InvalidArgumentException(vsprintf('Invalid url type "%s", expected one of "%s"', $type, implode(', ', ['html', 'api'])));
+        throw new \InvalidArgumentException(sprintf('Invalid url type "%s", expected one of "%s"', $type, implode(', ', ['html', 'api'])));
     }
 
     public function getName()

@@ -47,5 +47,14 @@ class UserTest extends AbstractTestCase
         $orgs = $user->getOrganizations();
         $this->assertCount(1, $orgs);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidUrlTypeThrowsException()
+    {
+        $organization = new User();
+        $organization->getUrl('invalid type');
+    }
 }
  

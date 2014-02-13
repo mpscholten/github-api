@@ -36,7 +36,7 @@ class AbstractApi
             throw new \RuntimeException(vsprintf('Did you forget to pass the http-client in the constructor of %s?', get_class($this)));
         }
 
-        $response = $this->client->post($url, null, json_encode($payload));
+        $response = $this->client->post($url, null, json_encode($payload))->send();
         return ResponseDecoder::decode($response);
     }
 

@@ -4,6 +4,7 @@
 namespace MPScholten\GithubApi\Tests\Api\Repository;
 
 
+use MPScholten\GithubApi\Api\Repository\Key;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\Tests\AbstractTestCase;
 
@@ -79,6 +80,21 @@ class RepositoryTest extends AbstractTestCase
         }
 
         $this->assertEquals($repository->getKeys(), $repository->getDeployKeys(), 'getDeployKeys should return the same as getKeys');
+    }
+
+    public function testAddKey()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $this->mockSimpleRequest($httpClient, 'post', json_encode($this->loadJsonFixture('fixture6.json')));
+
+        $repository = new Repository($httpClient);
+        $key = new Key();
+        $key->setTitle('hello word');
+        $key->setKey('123');
+
+        $this->assertNull($key->getId());
+        $repository->addKey($key);
+        $this->assertEquals(1, $key->getId());
     }
 
 }

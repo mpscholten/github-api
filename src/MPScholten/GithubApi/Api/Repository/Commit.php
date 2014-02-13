@@ -11,6 +11,7 @@ class Commit extends AbstractApi
 {
     // relations
     protected $committer;
+
     // attributes
     private $message;
     private $sha;
