@@ -6,6 +6,9 @@ namespace MPScholten\GithubApi\Api\Repository;
 
 use MPScholten\GithubApi\Api\AbstractApi;
 
+/**
+ * @link http://developer.github.com/v3/repos/keys/
+ */
 class Key extends AbstractApi
 {
     private $id;
@@ -19,11 +22,17 @@ class Key extends AbstractApi
         $this->title = $data['title'];
     }
 
+    /**
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string The public key, e.g. "ssh-rsa AAA..."
+     */
     public function getKey()
     {
         return $this->key;
@@ -34,6 +43,9 @@ class Key extends AbstractApi
         $this->key = $key;
     }
 
+    /**
+     * @return string The name of the key
+     */
     public function getTitle()
     {
         return $this->title;

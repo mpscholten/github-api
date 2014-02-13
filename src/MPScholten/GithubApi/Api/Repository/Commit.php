@@ -7,6 +7,9 @@ namespace MPScholten\GithubApi\Api\Repository;
 use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\User\User;
 
+/**
+ * @link http://developer.github.com/v3/repos/commits/
+ */
 class Commit extends AbstractApi
 {
     // relations
@@ -25,6 +28,9 @@ class Commit extends AbstractApi
         $this->committer->populate($data['committer']);
     }
 
+    /**
+     * @return string The commit message
+     */
     public function getMessage()
     {
         return $this->message;

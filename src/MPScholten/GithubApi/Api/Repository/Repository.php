@@ -60,6 +60,11 @@ class Repository extends AbstractApi
     }
 
     /**
+     * @link http://developer.github.com/v3/repos/collaborators/#list
+     * When authenticating as an organization owner of an organization-owned repository, all organization owners are
+     * included in the list of collaborators. Otherwise, only users with access to the repository are returned in the
+     * collaborators list.
+     *
      * @return User[]
      */
     public function getCollaborators()
@@ -86,6 +91,9 @@ class Repository extends AbstractApi
     }
 
     /**
+     * @link http://developer.github.com/v3/repos/keys/#list
+     * @see Repository::getDeployKeys()
+     *
      * @return Key[]
      */
     public function getKeys()
@@ -144,6 +152,8 @@ class Repository extends AbstractApi
     }
 
     /**
+     * @link http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository
+     *
      * @return Commit[]
      */
     public function getCommits()
@@ -155,51 +165,82 @@ class Repository extends AbstractApi
         return $this->commits;
     }
 
+    /**
+     * @link http://developer.github.com/v3/repos/keys/#list
+     * @see Repository::getKeys()
+     */
     public function getDeployKeys()
     {
         return $this->getKeys();
     }
 
+    /**
+     * @return string The default branch of the repository, in most cases this is "master"
+     */
     public function getDefaultBranch()
     {
         return $this->defaultBranch;
     }
 
+    /**
+     * @return string The description of the repository, e.g. "This your first repo!"
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
+    /**
+     * @return string The full name of the repository, e.g. "octocat/Hello-World"
+     */
     public function getFullName()
     {
         return $this->fullName;
     }
 
+    /**
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return boolean
+     */
     public function isFork()
     {
         return $this->isFork;
     }
 
+    /**
+     * @return boolean
+     */
     public function isPrivate()
     {
         return $this->isPrivate;
     }
 
+    /**
+     * @return string The repository name, e.g. "Hello-World"
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return User The owner of the repository
+     */
     public function getOwner()
     {
         return $this->owner;
     }
 
+    /**
+     * @return string The clone url if you want to clone via ssh, e.g. "git@github.com:octocat/Hello-World.git"
+     */
     public function getSshUrl()
     {
         return $this->sshUrl;
