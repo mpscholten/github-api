@@ -56,10 +56,10 @@ class CurrentUser extends User
         return $this->repositories[$type];
     }
 
-    protected function loadRepositories()
+    protected function loadRepositories($type)
     {
         $repositories = [];
-        foreach ($this->get('user/repos') as $data) {
+        foreach ($this->get('user/repos', ['type' => $type]) as $data) {
             $repository = new Repository($this->client);
             $repository->populate($data);
 

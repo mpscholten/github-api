@@ -6,6 +6,7 @@ namespace MPScholten\GithubApi\Api\User;
 
 use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\Organization\Organization;
+use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\TemplateUrlGenerator;
 use MPScholten\GithubApi\UrlType;
 
@@ -16,6 +17,7 @@ class User extends AbstractApi
 {
     // relations
     private $organizations;
+    private $repositories;
 
     // attributes
     private $id;
@@ -26,6 +28,7 @@ class User extends AbstractApi
 
     // urls
     private $organizationsUrl;
+    private $repositoriesUrl;
 
     private $htmlUrl;
     private $url;
@@ -42,6 +45,7 @@ class User extends AbstractApi
         // urls
         $this->url = $data['url'];
         $this->htmlUrl = $data['html_url'];
+        $this->repositoriesUrl = $data['repositories_url'];
     }
 
     /**
@@ -130,6 +134,43 @@ class User extends AbstractApi
         }
 
         return $organizations;
+    }
+
+    /**
+     * @link http://developer.github.com/v3/repos/#list-user-repositories
+     * "List public repositories for the specified user."
+     *
+     * @param string $type Can be one of all, owner, member. Default: owner
+     * @throws \InvalidArgumentException In case the $type is not valid
+     * @return Repository[]
+     */
+    public function getRepositories($type = 'owner')
+    {
+        $validTypes = ['all', 'owner', 'member'];
+        if(!in_array($type, $validTypes)) {
+            throw new \InvalidArgumentException(sprintf('Invalid type, expected one of "%s"', implode(', ', $validTypes)));
+        }
+
+        if (!isset($this->repositories[$type])) {
+            $this->repositories[$type] = $this->loadRepositories($type);
+        }
+
+        return $this->repositories[$type];
+    }
+
+    protected function loadRepositories($type)
+    {
+        $url = $url = TemplateUrlGenerator::generate($this->repositoriesUrl, []);
+
+        $repositories = [];
+        foreach ($this->get($url, ['type' => $type]) as $data) {
+            $repository = new Repository($this->client);
+            $repository->populate($data);
+
+            $repositories[] = $repository;
+        }
+
+        return $repositories;
     }
 
 
