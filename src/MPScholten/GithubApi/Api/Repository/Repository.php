@@ -123,7 +123,7 @@ class Repository extends AbstractApi
 
     protected function loadCommits()
     {
-        $url = $this->client->get(TemplateUrlGenerator::generate($this->commitsUrl, ['sha' => null]));
+        $url = TemplateUrlGenerator::generate($this->commitsUrl, ['sha' => null]);
         return $this->createPaginationIterator($url, Commit::CLASS_NAME);
     }
 

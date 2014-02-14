@@ -8,6 +8,8 @@ use MPScholten\GithubApi\Api\AbstractApi;
 
 class Organization extends AbstractApi
 {
+    const CLASS_NAME = __CLASS__;
+
     // attributes
     private $id;
     private $login;

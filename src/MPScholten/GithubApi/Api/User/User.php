@@ -139,16 +139,7 @@ class User extends AbstractApi
     protected function loadOrganizations()
     {
         $url = TemplateUrlGenerator::generate($this->organizationsUrl, []);
-
-        $organizations = [];
-        foreach ($this->get($url) as $data) {
-            $organization = new Organization($this->client);
-            $organization->populate($data);
-
-            $organizations[] = $organization;
-        }
-
-        return $organizations;
+        return $this->createPaginationIterator($url, Organization::CLASS_NAME);
     }
 
     /**
