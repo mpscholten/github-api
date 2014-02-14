@@ -70,4 +70,22 @@ class AbstractApi
             throw new GithubException('Unexpected response.', 0, $e);
         }
     }
+
+    protected function createSimpleIterator($url, $class)
+    {
+        return new PaginationIterator(
+            $this->client,
+            $this->client->get($url),
+            function ($response, $client) {
+                $models = [];
+                foreach ($response as $data) {
+                    $model = new $class($this->client);
+                    $model->populate($data);
+                    $models[] = $model;
+                }
+
+                return $models;
+            }
+        );
+    }
 }

@@ -13,10 +13,11 @@ class Repository extends AbstractApi
 {
     // relations
     protected $owner;
-    protected $collaborators = null;
-    protected $keys = null;
-    protected $commits = null;
+    protected $collaborators;
+    protected $keys;
+    protected $commits;
     protected $hooks;
+    protected $branches;
 
     // attributes
     private $id;
@@ -34,6 +35,7 @@ class Repository extends AbstractApi
     private $gitUrl;
     private $sshUrl;
     private $htmlUrl;
+    private $branchesUrl;
 
     public function populate($data)
     {
@@ -53,6 +55,7 @@ class Repository extends AbstractApi
         $this->gitUrl = $data['git_url'];
         $this->sshUrl = $data['ssh_url'];
         $this->htmlUrl = $data['html_url'];
+        $this->branchesUrl = $data['branches_url'];
 
         // populate relations
         $this->owner = new User($this->client);
@@ -164,6 +167,26 @@ class Repository extends AbstractApi
         }
 
         return $this->commits;
+    }
+
+    protected function loadBranches()
+    {
+        $url = TemplateUrlGenerator::generate($this->branchesUrl, ['branch' => null]);
+        return $this->createSimpleIterator($url, Branch::CLASS_NAME);
+    }
+
+    /**
+     * @link http://developer.github.com/v3/repos/#list-branches
+     *
+     * @return Branch[]
+     */
+    public function getBranches()
+    {
+        if ($this->branches === null) {
+            $this->branches = $this->loadBranches();
+        }
+
+        return $this->branches;
     }
 
     /**
