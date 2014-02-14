@@ -5,6 +5,8 @@ namespace MPScholten\GithubApi\Api;
 
 
 use Guzzle\Http\ClientInterface;
+use Guzzle\Http\Message\RequestInterface;
+use MPScholten\GithubApi\Exception\GithubException;
 use MPScholten\GithubApi\ResponseDecoder;
 
 class AbstractApi
@@ -28,7 +30,7 @@ class AbstractApi
         $request = $this->client->get($url);
         $request->getQuery()->merge($query);
 
-        $response = $request->send();
+        $response = $this->sendRequest($request);
         return ResponseDecoder::decode($response);
     }
 
@@ -41,7 +43,9 @@ class AbstractApi
             ));
         }
 
-        $response = $this->client->post($url, null, json_encode($payload))->send();
+        $request = $this->client->post($url, null, json_encode($payload));
+        $response = $this->sendRequest($request);
+
         return ResponseDecoder::decode($response);
     }
 
@@ -54,6 +58,16 @@ class AbstractApi
             ));
         }
 
-        $response = $this->client->delete($url);
+        $request = $this->client->delete($url);
+        $this->sendRequest($request);
+    }
+
+    private function sendRequest(RequestInterface $request)
+    {
+        try {
+            return $request->send();
+        } catch (\Exception $e) {
+            throw new GithubException('Unexpected response.', 0, $e);
+        }
     }
 }

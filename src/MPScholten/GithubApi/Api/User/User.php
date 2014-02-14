@@ -111,6 +111,10 @@ class User extends AbstractApi
      */
     public function getName()
     {
+        if ($this->name === null) {
+            $this->load();
+        }
+
         return $this->name;
     }
 
