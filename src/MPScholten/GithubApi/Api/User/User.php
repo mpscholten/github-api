@@ -44,7 +44,12 @@ class User extends AbstractApi
         // urls
         $this->url = $data['url'];
         $this->htmlUrl = $data['html_url'];
-        $this->repositoriesUrl = $data['repositories_url'];
+        $this->repositoriesUrl = isset($data['repositories_url']) ? $data['repositories_url'] : null;
+    }
+
+    private function load()
+    {
+        $this->populate($this->get($this->url));
     }
 
     /**
@@ -167,7 +172,7 @@ class User extends AbstractApi
 
     protected function loadRepositories($type)
     {
-        $url = $url = TemplateUrlGenerator::generate($this->repositoriesUrl, []);
+        $url = $url = TemplateUrlGenerator::generate($this->getRepositoresUrl(), []);
 
         $repositories = [];
         foreach ($this->get($url, ['type' => $type]) as $data) {
@@ -178,5 +183,14 @@ class User extends AbstractApi
         }
 
         return $repositories;
+    }
+
+    private function getRepositoresUrl()
+    {
+        if ($this->repositoriesUrl === null) {
+            $this->load();
+        }
+
+        return $this->repositoriesUrl;
     }
 }
