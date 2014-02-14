@@ -12,6 +12,8 @@ use MPScholten\GithubApi\Api\User\User;
  */
 class Commit extends AbstractApi
 {
+    const CLASS_NAME = __CLASS__;
+
     // relations
     protected $committer;
 

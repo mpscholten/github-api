@@ -14,6 +14,8 @@ use MPScholten\GithubApi\TemplateUrlGenerator;
  */
 class User extends AbstractApi
 {
+    const CLASS_NAME = __CLASS__;
+
     // relations
     private $organizations;
     private $repositories;

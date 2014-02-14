@@ -11,6 +11,8 @@ use MPScholten\GithubApi\Api\AbstractApi;
  */
 class Key extends AbstractApi
 {
+    const CLASS_NAME = __CLASS__;
+
     private $id;
     private $key;
     private $title;

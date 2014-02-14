@@ -8,6 +8,7 @@ use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\PaginationIterator;
 use MPScholten\GithubApi\Api\User\User;
 use MPScholten\GithubApi\TemplateUrlGenerator;
+use MPScholten\GithubApi\Tests\Api\Repository\CommitTest;
 
 class Repository extends AbstractApi
 {
@@ -82,15 +83,7 @@ class Repository extends AbstractApi
     protected function loadCollaborators()
     {
         $url = TemplateUrlGenerator::generate($this->collaboratorsUrl, ['collaborator' => null]);
-        $collaborators = [];
-        foreach ($this->get($url) as $data) {
-            $collaborator = new User($this->client);
-            $collaborator->populate($data);
-
-            $collaborators[] = $collaborator;
-        }
-
-        return $collaborators;
+        return $this->createPaginationIterator($url, User::CLASS_NAME);
     }
 
     /**
@@ -111,15 +104,7 @@ class Repository extends AbstractApi
     protected function loadKeys()
     {
         $url = TemplateUrlGenerator::generate($this->keysUrl, ['key_id' => null]);
-        $keys = [];
-        foreach ($this->get($url) as $data) {
-            $key = new Key($this->client);
-            $key->populate($data);
-
-            $keys[] = $key;
-        }
-
-        return $keys;
+        return $this->createPaginationIterator($url, Key::CLASS_NAME);
     }
 
     public function addKey(Key $key)
@@ -138,21 +123,8 @@ class Repository extends AbstractApi
 
     protected function loadCommits()
     {
-        $client = $this->client;
-        return new PaginationIterator(
-            $client,
-            $this->client->get(TemplateUrlGenerator::generate($this->commitsUrl, ['sha' => null])),
-            function ($response, $client) {
-                $commits = [];
-                foreach ($response as $data) {
-                    $commit = new Commit($client);
-                    $commit->populate($data);
-                    $commits[] = $commit;
-                }
-
-                return $commits;
-            }
-        );
+        $url = $this->client->get(TemplateUrlGenerator::generate($this->commitsUrl, ['sha' => null]));
+        return $this->createPaginationIterator($url, Commit::CLASS_NAME);
     }
 
     /**
@@ -172,7 +144,7 @@ class Repository extends AbstractApi
     protected function loadBranches()
     {
         $url = TemplateUrlGenerator::generate($this->branchesUrl, ['branch' => null]);
-        return $this->createSimpleIterator($url, Branch::CLASS_NAME);
+        return $this->createPaginationIterator($url, Branch::CLASS_NAME);
     }
 
     /**
