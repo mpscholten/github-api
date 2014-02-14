@@ -14,19 +14,12 @@ class Branch extends AbstractApi
     // relations
     private $latestCommit;
 
-    // urls
-    private $url;
-    private $htmlUrl;
-
     public function populate($data)
     {
         $this->name = $data['name'];
 
         $this->latestCommit = new Commit();
         $this->latestCommit->populate($data['commit']);
-
-        $this->url = $data['_links']['self'];
-        $this->htmlUrl = $data['_links']['html'];
     }
 
     /**

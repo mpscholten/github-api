@@ -70,21 +70,4 @@ class AbstractApi
             throw new GithubException('Unexpected response.', 0, $e);
         }
     }
-
-    protected function val(array $data, $key, $required = true)
-    {
-        if (isset($data[$key])) {
-            return $data[$key];
-        }
-
-        if ($required) {
-            throw new \RuntimeException(sprintf(
-                'Expected a key %s to be in the given dataset (%s)',
-                $key,
-                implode(', ', $data)
-            ));
-        }
-
-        return null;
-    }
 }

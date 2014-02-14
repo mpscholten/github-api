@@ -19,13 +19,27 @@ class Commit extends AbstractApi
     private $message;
     private $sha;
 
+    // urls
+    private $url;
+
     public function populate(array $data)
     {
         $this->sha = $data['sha'];
-        $this->message = $data['commit']['message'];
+        $this->url = $data['url'];
 
-        $this->committer = new User($this->client);
-        $this->committer->populate($data['committer']);
+        $this->message = isset($data['commit']['message']) ? $data['commit']['message'] : null;
+
+        if (isset($data['committer'])) {
+            $this->committer = new User($this->client);
+            $this->committer->populate($data['committer']);
+        } else {
+            $this->committer = null;
+        }
+    }
+
+    private function load()
+    {
+        $this->populate($this->get($this->url));
     }
 
     /**
@@ -33,6 +47,10 @@ class Commit extends AbstractApi
      */
     public function getMessage()
     {
+        if ($this->message === null) {
+            $this->load();
+        }
+
         return $this->message;
     }
 
@@ -41,6 +59,10 @@ class Commit extends AbstractApi
      */
     public function getCommitter()
     {
+        if ($this->committer === null) {
+            $this->load();
+        }
+
         return $this->committer;
     }
 }
