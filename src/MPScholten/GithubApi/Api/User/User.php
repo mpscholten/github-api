@@ -26,6 +26,7 @@ class User extends AbstractApi
     private $avatarUrl;
     private $gravatarId;
     private $name;
+    private $email;
 
     // urls
     private $organizationsUrl;
@@ -42,6 +43,7 @@ class User extends AbstractApi
         $this->gravatarId = $data['gravatar_id'];
         $this->organizationsUrl = $data['organizations_url'];
         $this->name = isset($data['name']) ? $data['name'] : null;
+        $this->email = isset($data['email']) ? $data['email'] : null;
 
         // urls
         $this->url = $data['url'];
@@ -189,5 +191,16 @@ class User extends AbstractApi
         }
 
         return $this->repositoriesUrl;
+    }
+
+    /**
+     * The returned email is the user’s publicly visible email address (or null if the user has not specified a public
+     * email address in their profile).
+     *
+     * @return string|null The users publicly visible email address or null if not specified by the user
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }
