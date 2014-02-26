@@ -5,11 +5,12 @@ namespace MPScholten\GithubApi\Api\Repository;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\PopulateableInterface;
 
 /**
  * @link http://developer.github.com/v3/repos/keys/
  */
-class Key extends AbstractApi
+class Key extends AbstractApi implements PopulateableInterface
 {
     const CLASS_NAME = __CLASS__;
 
@@ -17,7 +18,7 @@ class Key extends AbstractApi
     private $key;
     private $title;
 
-    public function populate($data)
+    public function populate(array $data)
     {
         $this->id = $data['id'];
         $this->key = $data['key'];

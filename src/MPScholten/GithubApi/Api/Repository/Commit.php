@@ -5,12 +5,13 @@ namespace MPScholten\GithubApi\Api\Repository;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\User\User;
 
 /**
  * @link http://developer.github.com/v3/repos/commits/
  */
-class Commit extends AbstractApi
+class Commit extends AbstractApi implements PopulateableInterface
 {
     const CLASS_NAME = __CLASS__;
 

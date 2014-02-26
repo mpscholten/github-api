@@ -6,11 +6,12 @@ namespace MPScholten\GithubApi\Api\Repository;
 
 use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\PaginationIterator;
+use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\User\User;
 use MPScholten\GithubApi\TemplateUrlGenerator;
 use MPScholten\GithubApi\Tests\Api\Repository\CommitTest;
 
-class Repository extends AbstractApi
+class Repository extends AbstractApi implements PopulateableInterface
 {
     // relations
     protected $owner;
@@ -38,7 +39,7 @@ class Repository extends AbstractApi
     private $htmlUrl;
     private $branchesUrl;
 
-    public function populate($data)
+    public function populate(array $data)
     {
         // attributes
         $this->id = $data['id'];

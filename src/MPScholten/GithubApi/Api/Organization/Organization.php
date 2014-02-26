@@ -5,8 +5,9 @@ namespace MPScholten\GithubApi\Api\Organization;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\PopulateableInterface;
 
-class Organization extends AbstractApi
+class Organization extends AbstractApi implements PopulateableInterface
 {
     const CLASS_NAME = __CLASS__;
 

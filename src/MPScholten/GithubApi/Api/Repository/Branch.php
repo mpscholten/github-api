@@ -5,8 +5,9 @@ namespace MPScholten\GithubApi\Api\Repository;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\PopulateableInterface;
 
-class Branch extends AbstractApi
+class Branch extends AbstractApi implements PopulateableInterface
 {
     const CLASS_NAME = __CLASS__;
 
@@ -16,7 +17,7 @@ class Branch extends AbstractApi
     // relations
     private $latestCommit;
 
-    public function populate($data)
+    public function populate(array $data)
     {
         $this->name = $data['name'];
 

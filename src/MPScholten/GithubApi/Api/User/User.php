@@ -6,13 +6,14 @@ namespace MPScholten\GithubApi\Api\User;
 
 use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\Organization\Organization;
+use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\TemplateUrlGenerator;
 
 /**
  * @link http://developer.github.com/v3/users/
  */
-class User extends AbstractApi
+class User extends AbstractApi implements PopulateableInterface
 {
     const CLASS_NAME = __CLASS__;
 
@@ -35,7 +36,7 @@ class User extends AbstractApi
     private $htmlUrl;
     private $url;
 
-    public function populate($data)
+    public function populate(array $data)
     {
         $this->id = $data['id'];
         $this->login = $data['login'];
