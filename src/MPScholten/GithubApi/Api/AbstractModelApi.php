@@ -44,22 +44,6 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
         }
     }
 
-    private function flatArrayKeyExists($array, $key)
-    {
-        $seperatorPos = strpos($key, '.');
-
-        if ($seperatorPos === false) {
-            return array_key_exists($key, $array);
-        }
-
-        $first = substr($key, 0, $seperatorPos);
-        if(array_key_exists($first, $array)) {
-            return $this->flatArrayKeyExists($array, substr($key, $seperatorPos));
-        }
-
-        return false;
-    }
-
     private function isLoaded($attribute)
     {
         return array_key_exists($attribute, $this->loadedMap) && $this->loadedMap[$attribute];
