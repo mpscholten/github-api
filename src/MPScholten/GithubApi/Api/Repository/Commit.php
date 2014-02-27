@@ -5,44 +5,25 @@ namespace MPScholten\GithubApi\Api\Repository;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\AbstractModelApi;
 use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\User\User;
 
 /**
  * @link http://developer.github.com/v3/repos/commits/
  */
-class Commit extends AbstractApi implements PopulateableInterface
+class Commit extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
 
-    // relations
+    protected $attributes = ['commit.message', 'sha', 'url', 'committer'];
+
     protected $committer;
 
-    // attributes
-    private $message;
-    private $sha;
-
-    // urls
-    private $url;
-
-    public function populate(array $data)
+    protected function load()
     {
-        $this->sha = $data['sha'];
-        $this->url = $data['url'];
-
-        $this->message = isset($data['commit']['message']) ? $data['commit']['message'] : null;
-
-        if (isset($data['committer'])) {
-            $this->committer = new User($this->client);
-            $this->committer->populate($data['committer']);
-        } else {
-            $this->committer = null;
-        }
-    }
-
-    private function load()
-    {
-        $this->populate($this->get($this->url));
+        $url = $this->getAttribute('url');
+        $this->populate($this->get($url));
     }
 
     /**
@@ -50,11 +31,7 @@ class Commit extends AbstractApi implements PopulateableInterface
      */
     public function getMessage()
     {
-        if ($this->message === null) {
-            $this->load();
-        }
-
-        return $this->message;
+        return $this->getAttribute('commit.message');
     }
 
     /**
@@ -63,7 +40,8 @@ class Commit extends AbstractApi implements PopulateableInterface
     public function getCommitter()
     {
         if ($this->committer === null) {
-            $this->load();
+            $this->committer = new User($this->client);
+            $this->committer->populate($this->getAttribute('committer'));
         }
 
         return $this->committer;

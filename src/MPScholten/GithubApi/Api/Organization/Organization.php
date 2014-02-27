@@ -5,83 +5,48 @@ namespace MPScholten\GithubApi\Api\Organization;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\AbstractModelApi;
 use MPScholten\GithubApi\Api\PopulateableInterface;
 
-class Organization extends AbstractApi implements PopulateableInterface
+class Organization extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
 
-    // attributes
-    private $id;
-    private $login;
-    private $name;
-    private $email;
-    private $avatarUrl;
-
-    // urls
-    private $url;
-    private $htmlUrl;
-
-    public function populate(array $data)
-    {
-        $this->id = $data['id'];
-        $this->login = $data['login'];
-        $this->url = $data['url'];
-        $this->avatarUrl = $data['avatar_url'];
-        $this->htmlUrl = isset($data['html_url']) ? $data['html_url'] : null;
-        $this->name = isset($data['name']) ? $data['name'] : null;
-        $this->email = isset($data['email']) ? $data['email'] : null;
-    }
+    protected $attributes = ['id', 'login', 'name', 'email', 'avatar_url', 'url', 'html_url'];
 
     protected function load()
     {
-        $this->populate($this->get($this->url));
+        $url = $this->getAttribute('url');
+        $this->populate($this->get($url));
     }
 
     public function getLogin()
     {
-        return $this->login;
+        return $this->getAttribute('login');
     }
 
     public function getName()
     {
-        if ($this->name === null) {
-            $this->load();
-        }
-
-        return $this->name;
+        return $this->getAttribute('name');
     }
 
     public function getEmail()
     {
-        if ($this->email === null) {
-            $this->load();
-        }
-
-        return $this->email;
+        return $this->getAttribute('email');
     }
 
     public function getId()
     {
-        return $this->id;
-    }
-
-    private function getHtmlUrl()
-    {
-        if ($this->htmlUrl === null) {
-            $this->load();
-        }
-
-        return $this->htmlUrl;
+        return $this->getAttribute('id');
     }
 
     public function getUrl($type = 'html')
     {
         switch ($type) {
             case 'html':
-                return $this->getHtmlUrl();
+                return $this->getAttribute('html_url');
             case 'api':
-                return $this->url;
+                return $this->getAttribute('url');
         }
 
         throw new \InvalidArgumentException(sprintf(
@@ -93,6 +58,6 @@ class Organization extends AbstractApi implements PopulateableInterface
 
     public function getAvatarUrl()
     {
-        return $this->avatarUrl;
+        return $this->getAttribute('avatar_url');
     }
 }

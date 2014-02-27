@@ -92,6 +92,8 @@ class RepositoryTest extends AbstractTestCase
         $this->mockSimpleRequest($httpClient, 'post', json_encode($this->loadJsonFixture('fixture6.json')));
 
         $repository = new Repository($httpClient);
+        $repository->populate($this->loadJsonFixture('fixture1.json'));
+
         $key = new Key();
         $key->setTitle('hello word');
         $key->setKey('123');

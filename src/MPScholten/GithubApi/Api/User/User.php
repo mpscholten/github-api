@@ -5,6 +5,7 @@ namespace MPScholten\GithubApi\Api\User;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\AbstractModelApi;
 use MPScholten\GithubApi\Api\Organization\Organization;
 use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\Repository\Repository;
@@ -13,48 +14,31 @@ use MPScholten\GithubApi\TemplateUrlGenerator;
 /**
  * @link http://developer.github.com/v3/users/
  */
-class User extends AbstractApi implements PopulateableInterface
+class User extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
 
-    // relations
+    protected $attributes = [
+        'id',
+        'login',
+        'avatar_url',
+        'gravatar_url',
+        'organizations_url',
+        'name',
+        'email',
+        'url',
+        'html_url',
+        'repositories_url',
+        'gravatar_id'
+    ];
+
     private $organizations;
     private $repositories;
 
-    // attributes
-    private $id;
-    private $login;
-    private $avatarUrl;
-    private $gravatarId;
-    private $name;
-    private $email;
-
-    // urls
-    private $organizationsUrl;
-    private $repositoriesUrl;
-
-    private $htmlUrl;
-    private $url;
-
-    public function populate(array $data)
+    protected function load()
     {
-        $this->id = $data['id'];
-        $this->login = $data['login'];
-        $this->avatarUrl = $data['avatar_url'];
-        $this->gravatarId = $data['gravatar_id'];
-        $this->organizationsUrl = $data['organizations_url'];
-        $this->name = isset($data['name']) ? $data['name'] : null;
-        $this->email = isset($data['email']) ? $data['email'] : null;
-
-        // urls
-        $this->url = $data['url'];
-        $this->htmlUrl = $data['html_url'];
-        $this->repositoriesUrl = isset($data['repositories_url']) ? $data['repositories_url'] : null;
-    }
-
-    private function load()
-    {
-        $this->populate($this->get($this->url));
+        $url = $this->getAttribute('url');
+        $this->populate($this->get($url));
     }
 
     /**
@@ -62,7 +46,7 @@ class User extends AbstractApi implements PopulateableInterface
      */
     public function getLogin()
     {
-        return $this->login;
+        return $this->getAttribute('login');
     }
 
     /**
@@ -70,7 +54,7 @@ class User extends AbstractApi implements PopulateableInterface
      */
     public function getAvatarUrl()
     {
-        return $this->avatarUrl;
+        return $this->getAttribute('avatar_url');
     }
 
     /**
@@ -79,7 +63,7 @@ class User extends AbstractApi implements PopulateableInterface
      */
     public function getGravatarId()
     {
-        return $this->gravatarId;
+        return $this->getAttribute('gravatar_id');
     }
 
     /**
@@ -87,7 +71,7 @@ class User extends AbstractApi implements PopulateableInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->getAttribute('id');
     }
 
     /**
@@ -99,9 +83,9 @@ class User extends AbstractApi implements PopulateableInterface
     {
         switch ($type) {
             case 'html':
-                return $this->htmlUrl;
+                return $this->getAttribute('html_url');
             case 'api':
-                return $this->url;
+                return $this->getAttribute('url');
         }
 
         throw new \InvalidArgumentException(sprintf(
@@ -116,11 +100,7 @@ class User extends AbstractApi implements PopulateableInterface
      */
     public function getName()
     {
-        if ($this->name === null) {
-            $this->load();
-        }
-
-        return $this->name;
+        return $this->getAttribute('name');
     }
 
     /**
@@ -141,7 +121,7 @@ class User extends AbstractApi implements PopulateableInterface
 
     protected function loadOrganizations()
     {
-        $url = TemplateUrlGenerator::generate($this->organizationsUrl, []);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('organizations_url'), []);
         return $this->createPaginationIterator($url, Organization::CLASS_NAME);
     }
 
@@ -172,7 +152,7 @@ class User extends AbstractApi implements PopulateableInterface
 
     protected function loadRepositories($type)
     {
-        $url = $url = TemplateUrlGenerator::generate($this->getRepositoriesUrl(), []);
+        $url = $url = TemplateUrlGenerator::generate($this->getAttribute('repositories_url'), []);
 
         $repositories = [];
         foreach ($this->get($url, ['type' => $type]) as $data) {
@@ -185,15 +165,6 @@ class User extends AbstractApi implements PopulateableInterface
         return $repositories;
     }
 
-    private function getRepositoriesUrl()
-    {
-        if ($this->repositoriesUrl === null) {
-            $this->load();
-        }
-
-        return $this->repositoriesUrl;
-    }
-
     /**
      * The returned email is the user’s publicly visible email address (or null if the user has not specified a public
      * email address in their profile).
@@ -202,6 +173,6 @@ class User extends AbstractApi implements PopulateableInterface
      */
     public function getEmail()
     {
-        return $this->email;
+        return $this->getAttribute('email');
     }
 }

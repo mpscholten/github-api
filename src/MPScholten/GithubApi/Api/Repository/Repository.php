@@ -5,14 +5,34 @@ namespace MPScholten\GithubApi\Api\Repository;
 
 
 use MPScholten\GithubApi\Api\AbstractApi;
+use MPScholten\GithubApi\Api\AbstractModelApi;
 use MPScholten\GithubApi\Api\PaginationIterator;
 use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\User\User;
 use MPScholten\GithubApi\TemplateUrlGenerator;
 use MPScholten\GithubApi\Tests\Api\Repository\CommitTest;
 
-class Repository extends AbstractApi implements PopulateableInterface
+class Repository extends AbstractModelApi
 {
+    protected $attributes = [
+        'id',
+        'name',
+        'full_name',
+        'description',
+        'private',
+        'fork',
+        'default_branch',
+        'collaborators_url',
+        'keys_url',
+        'commits_url',
+        'git_url',
+        'ssh_url',
+        'html_url',
+        'branches_url',
+        'owner',
+        'url'
+    ];
+
     // relations
     protected $owner;
     protected $collaborators;
@@ -21,47 +41,14 @@ class Repository extends AbstractApi implements PopulateableInterface
     protected $hooks;
     protected $branches;
 
-    // attributes
-    private $id;
-    private $name;
-    private $fullName;
-    private $description;
-    private $isPrivate;
-    private $isFork;
-    private $defaultBranch;
 
-    // urls
-    private $collaboratorsUrl;
-    private $keysUrl;
-    private $commitsUrl;
-    private $gitUrl;
-    private $sshUrl;
-    private $htmlUrl;
-    private $branchesUrl;
-
-    public function populate(array $data)
+    /**
+     * Fully loads the model
+     */
+    protected function load()
     {
-        // attributes
-        $this->id = $data['id'];
-        $this->name = $data['name'];
-        $this->fullName = $data['full_name'];
-        $this->description = $data['description'];
-        $this->isPrivate = $data['private'];
-        $this->isFork = $data['fork'];
-        $this->defaultBranch = $data['default_branch'];
-
-        // urls
-        $this->collaboratorsUrl = $data['collaborators_url'];
-        $this->keysUrl = $data['keys_url'];
-        $this->commitsUrl = $data['commits_url'];
-        $this->gitUrl = $data['git_url'];
-        $this->sshUrl = $data['ssh_url'];
-        $this->htmlUrl = $data['html_url'];
-        $this->branchesUrl = $data['branches_url'];
-
-        // populate relations
-        $this->owner = new User($this->client);
-        $this->owner->populate($data['owner']);
+        $url = $this->getAttribute('url');
+        $this->populate($this->get($url));
     }
 
     /**
@@ -83,7 +70,7 @@ class Repository extends AbstractApi implements PopulateableInterface
 
     protected function loadCollaborators()
     {
-        $url = TemplateUrlGenerator::generate($this->collaboratorsUrl, ['collaborator' => null]);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('collaborators_url'), ['collaborator' => null]);
         return $this->createPaginationIterator($url, User::CLASS_NAME);
     }
 
@@ -104,13 +91,13 @@ class Repository extends AbstractApi implements PopulateableInterface
 
     protected function loadKeys()
     {
-        $url = TemplateUrlGenerator::generate($this->keysUrl, ['key_id' => null]);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('keys_url'), ['key_id' => null]);
         return $this->createPaginationIterator($url, Key::CLASS_NAME);
     }
 
     public function addKey(Key $key)
     {
-        $url = TemplateUrlGenerator::generate($this->keysUrl, ['key_id' => null]);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('keys_url'), ['key_id' => null]);
         $response = $this->post($url, ['title' => $key->getTitle(), 'key' => $key->getKey()]);
 
         $key->populate($response); // repopulate for getting the id
@@ -118,13 +105,13 @@ class Repository extends AbstractApi implements PopulateableInterface
 
     public function removeKey(Key $key)
     {
-        $url = TemplateUrlGenerator::generate($this->keysUrl, ['key_id' => $key->getId()]);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('keys_url'), ['key_id' => $key->getId()]);
         $this->delete($url);
     }
 
     protected function loadCommits()
     {
-        $url = TemplateUrlGenerator::generate($this->commitsUrl, ['sha' => null]);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('commits_url'), ['sha' => null]);
         return $this->createPaginationIterator($url, Commit::CLASS_NAME);
     }
 
@@ -144,7 +131,7 @@ class Repository extends AbstractApi implements PopulateableInterface
 
     protected function loadBranches()
     {
-        $url = TemplateUrlGenerator::generate($this->branchesUrl, ['branch' => null]);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('branches_url'), ['branch' => null]);
         return $this->createPaginationIterator($url, Branch::CLASS_NAME);
     }
 
@@ -176,7 +163,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function getDefaultBranch()
     {
-        return $this->defaultBranch;
+        return $this->getAttribute('default_branch');
     }
 
     /**
@@ -184,7 +171,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->getAttribute('description');
     }
 
     /**
@@ -192,7 +179,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function getFullName()
     {
-        return $this->fullName;
+        return $this->getAttribute('full_name');
     }
 
     /**
@@ -200,7 +187,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->getAttribute('id');
     }
 
     /**
@@ -208,7 +195,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function isFork()
     {
-        return $this->isFork;
+        return $this->getAttribute('fork');
     }
 
     /**
@@ -216,7 +203,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function isPrivate()
     {
-        return $this->isPrivate;
+        return $this->getAttribute('private');
     }
 
     /**
@@ -224,7 +211,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function getName()
     {
-        return $this->name;
+        return $this->getAttribute('name');
     }
 
     /**
@@ -232,6 +219,10 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function getOwner()
     {
+        if ($this->owner === null) {
+            $this->owner = new User($this->client);
+            $this->owner->populate($this->getAttribute('owner'));
+        }
         return $this->owner;
     }
 
@@ -240,6 +231,7 @@ class Repository extends AbstractApi implements PopulateableInterface
      */
     public function getSshUrl()
     {
-        return $this->sshUrl;
+        return $this->getAttribute('ssh_url');
     }
+
 }
