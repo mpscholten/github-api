@@ -12,7 +12,7 @@ class KeyTest extends AbstractTestCase
     public function testPopulateWithSampleData()
     {
         $key = new Key();
-        $key->populate($this->loadJsonFixture('fixture6.json'));
+        $key->populate($this->loadJsonFixture('fixture_key.json'));
 
         $this->assertEquals(1, $key->getId());
         $this->assertEquals('ssh-rsa AAA...', $key->getKey());
@@ -22,7 +22,7 @@ class KeyTest extends AbstractTestCase
     public function testSetter()
     {
         $key = new Key();
-        $key->populate($this->loadJsonFixture('fixture6.json'));
+        $key->populate($this->loadJsonFixture('fixture_key.json'));
 
         $key->setKey('hello world');
         $key->setTitle('my first key');

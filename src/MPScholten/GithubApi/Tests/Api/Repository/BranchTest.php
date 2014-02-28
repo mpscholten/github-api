@@ -12,7 +12,7 @@ class BranchTest extends AbstractTestCase
     public function testPopulateWithSampleData()
     {
         $branch = new Branch();
-        $branch->populate($this->loadJsonFixture('fixture7.json'));
+        $branch->populate($this->loadJsonFixture('fixture_branch.json'));
 
         $this->assertEquals('master', $branch->getName());
         $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Commit', $branch->getLatestCommit());

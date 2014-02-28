@@ -4,6 +4,7 @@
 namespace MPScholten\GithubApi\Tests\Api\Repository;
 
 
+use MPScholten\GithubApi\Api\Repository\Branch;
 use MPScholten\GithubApi\Api\Repository\Key;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\Tests\AbstractTestCase;
@@ -17,7 +18,7 @@ class RepositoryTest extends AbstractTestCase
 
     protected function setUp()
     {
-        $this->fixture1 = $this->loadJsonFixture('fixture1.json');
+        $this->fixture1 = $this->loadJsonFixture('fixture_repository.json');
         $this->fixture2 = $this->loadJsonFixture('fixture2.json');
         $this->fixture3 = $this->loadJsonFixture('fixture3.json');
         $this->fixture4 = $this->loadJsonFixture('fixture4.json');
@@ -67,6 +68,19 @@ class RepositoryTest extends AbstractTestCase
         }
     }
 
+    public function testLazyLoadingBranches()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_branches.json')));
+
+        $repository = new Repository($httpClient);
+        $repository->populate($this->loadJsonFixture('fixture_repository.json'));
+
+        foreach ($repository->getBranches() as $branch) {
+            $this->assertInstanceOf(Branch::CLASS_NAME, $branch);
+        }
+    }
+
     public function testLazyLoadingKeys()
     {
         $httpClient = $this->createHttpClientMock();
@@ -89,10 +103,10 @@ class RepositoryTest extends AbstractTestCase
     public function testAddKey()
     {
         $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'post', json_encode($this->loadJsonFixture('fixture6.json')));
+        $this->mockSimpleRequest($httpClient, 'post', json_encode($this->loadJsonFixture('fixture_key.json')));
 
         $repository = new Repository($httpClient);
-        $repository->populate($this->loadJsonFixture('fixture1.json'));
+        $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         $key = new Key();
         $key->setTitle('hello word');
