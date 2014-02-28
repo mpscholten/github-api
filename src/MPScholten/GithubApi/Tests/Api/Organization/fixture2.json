@@ -2,6 +2,7 @@
     "login": "github",
     "id": 1,
     "url": "https://api.github.com/orgs/github",
+    "repos_url": "https://api.github.com/orgs/github/repos",
     "avatar_url": "https://github.com/images/error/octocat_happy.gif",
     "name": "github",
     "company": "GitHub",

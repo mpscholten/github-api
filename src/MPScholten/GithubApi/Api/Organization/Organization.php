@@ -4,15 +4,59 @@
 namespace MPScholten\GithubApi\Api\Organization;
 
 use MPScholten\GithubApi\Api\AbstractModelApi;
+use MPScholten\GithubApi\Api\Repository\Repository;
+use MPScholten\GithubApi\TemplateUrlGenerator;
 
 class Organization extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
 
+    private $repositories;
+
     protected function load()
     {
         $url = $this->getAttribute('url');
         $this->populate($this->get($url));
+    }
+
+    /**
+     * @link http://developer.github.com/v3/repos/#list-organization-repositories
+     * List repositories for the specified Organization.
+     *
+     * @param string $type Can be one of all, public, private, forks, sources, member. Default: all
+     * @throws \InvalidArgumentException In case the $type is not valid
+     * @return Repository[]
+     */
+    public function getRepositories($type = 'all')
+    {
+        $validTypes = ['all', 'public', 'private', 'forks', 'sources', 'member'];
+        if (!in_array($type, $validTypes)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Invalid type, expected one of "%s"',
+                implode(', ', $validTypes)
+            ));
+        }
+
+        if (!isset($this->repositories[$type])) {
+            $this->repositories[$type] = $this->loadRepositories($type);
+        }
+
+        return $this->repositories[$type];
+    }
+
+    private function loadRepositories($type)
+    {
+        $url = TemplateUrlGenerator::generate($this->getAttribute('repos_url'), []);
+
+        $repositories = [];
+        foreach ($this->get($url, ['type' => $type]) as $data) {
+            $repository = new Repository($this->client);
+            $repository->populate($data);
+
+            $repositories[] = $repository;
+        }
+
+        return $repositories;
     }
 
     /**

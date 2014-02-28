@@ -51,6 +51,28 @@ class OrganizationTest extends AbstractTestCase
         $this->assertEquals('github', $organization->getName());
     }
 
+    public function testLazyLoadingRepositories()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $responseBody = json_encode($this->loadJsonFixture('fixture_repositories.json'));
+        $this->mockSimpleRequest($httpClient, 'get', $responseBody);
+
+
+        $organization = new Organization($httpClient);
+        $organization->populate($this->loadJsonFixture('fixture2.json'));
+
+        $repositories = $organization->getRepositories();
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidRepositoryTypeOnGetRepositories()
+    {
+        $organization = new Organization();
+        $organization->getRepositories('this is invalid');
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
