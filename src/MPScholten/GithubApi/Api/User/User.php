@@ -23,7 +23,14 @@ class User extends AbstractModelApi
 
     protected function load()
     {
-        $url = $this->getAttribute('url');
+        if ($this->isAttributeLoaded('url')) {
+            $url = $this->getAttribute('url');
+        } elseif ($this->isAttributeLoaded('login')) {
+            $url = TemplateUrlGenerator::generate('/users/{/user}', ['login' => $this->getLogin()]);
+        } else {
+            throw new \RuntimeException('Unable to guess user url, not enough informations given.');
+        }
+
         $this->populate($this->get($url));
     }
 
@@ -138,7 +145,7 @@ class User extends AbstractModelApi
 
     protected function loadRepositories($type)
     {
-        $url = TemplateUrlGenerator::generate($this->getAttribute('repositories_url'), []);
+        $url = TemplateUrlGenerator::generate($this->getAttribute('repos_url'), []);
 
         $repositories = [];
         foreach ($this->get($url, ['type' => $type]) as $data) {
