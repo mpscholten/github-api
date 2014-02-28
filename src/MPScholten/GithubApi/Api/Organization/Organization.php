@@ -16,6 +16,35 @@ class Organization extends AbstractModelApi
     }
 
     /**
+     * @param string $type Can be 'html' or 'api'
+     * @return string The url, e.g. https://github.com/octocat (if $type is html)
+     * @throws \InvalidArgumentException
+     */
+    public function getUrl($type = 'html')
+    {
+        switch ($type) {
+            case 'html':
+                return $this->getAttribute('html_url');
+            case 'api':
+                return $this->getAttribute('url');
+        }
+
+        throw new \InvalidArgumentException(sprintf(
+            'Invalid url type "%s", expected one of "%s"',
+            $type,
+            implode(', ', ['html', 'api'])
+        ));
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->getAttribute('id');
+    }
+
+    /**
      * @return string The login name of the Organization, e.g. "github"
      */
     public function getLogin()
@@ -40,39 +69,26 @@ class Organization extends AbstractModelApi
     }
 
     /**
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->getAttribute('id');
-    }
-
-    /**
-     * @param string $type Can be 'html' or 'api'
-     * @return string The url, e.g. https://github.com/octocat (if $type is html)
-     * @throws \InvalidArgumentException
-     */
-    public function getUrl($type = 'html')
-    {
-        switch ($type) {
-            case 'html':
-                return $this->getAttribute('html_url');
-            case 'api':
-                return $this->getAttribute('url');
-        }
-
-        throw new \InvalidArgumentException(sprintf(
-            'Invalid url type "%s", expected one of "%s"',
-            $type,
-            implode(', ', ['html', 'api'])
-        ));
-    }
-
-    /**
      * @return string The avatar url of the Organization, e.g. "https://github.com/images/error/octocat_happy.gif"
      */
     public function getAvatarUrl()
     {
         return $this->getAttribute('avatar_url');
+    }
+
+    /**
+     * @return string The blog of the Organization, e.g. "https://github.com/blog"
+     */
+    public function getBlog()
+    {
+        return $this->getAttribute('blog');
+    }
+
+    /**
+     * @return string The location of the Organization, e.g. "San Francisco"
+     */
+    public function getLocation()
+    {
+        return $this->getAttribute('location');
     }
 }
