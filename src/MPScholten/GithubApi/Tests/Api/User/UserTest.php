@@ -10,19 +10,10 @@ use MPScholten\GithubApi\Tests\AbstractTestCase;
 
 class UserTest extends AbstractTestCase
 {
-    private $fixture1;
-    private $fixture2;
-
-    protected function setUp()
-    {
-        $this->fixture1 = $this->loadJsonFixture('fixture1.json');
-        $this->fixture2 = $this->loadJsonFixture('fixture2.json');
-    }
-
     public function testPopulateWithExampleData()
     {
         $user = new User();
-        $user->populate($this->fixture1);
+        $user->populate($this->loadJsonFixture('fixture_user.json'));
 
         $this->assertEquals('octocat', $user->getLogin());
         $this->assertEquals(1, $user->getId());
@@ -37,10 +28,10 @@ class UserTest extends AbstractTestCase
     public function testLazyLoadingOrganizations()
     {
         $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->fixture2));
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_organizations.json')));
 
         $user = new User($httpClient);
-        $user->populate($this->fixture1);
+        $user->populate($this->loadJsonFixture('fixture_user.json'));
 
 
         $orgs = $user->getOrganizations();
@@ -55,7 +46,7 @@ class UserTest extends AbstractTestCase
 
 
         $organization = new User($httpClient);
-        $organization->populate($this->loadJsonFixture('fixture1.json'));
+        $organization->populate($this->loadJsonFixture('fixture_user.json'));
 
         $repositories = $organization->getRepositories();
         $this->assertCount(1, $repositories);
@@ -68,7 +59,7 @@ class UserTest extends AbstractTestCase
     public function testLazyLoadUserByLogin()
     {
         $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture1.json')));
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_user.json')));
 
         $user = new User($httpClient);
         $user->populate(['login' => 'octocat']);
@@ -79,7 +70,7 @@ class UserTest extends AbstractTestCase
     public function testLazyLoadUserByUrl()
     {
         $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture1.json')));
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_user.json')));
 
         $user = new User($httpClient);
         $user->populate(['url' => 'https://api.github.com/users/octocat']);
