@@ -4,6 +4,7 @@
 namespace MPScholten\GithubApi\Api\Organization;
 
 use MPScholten\GithubApi\Api\AbstractModelApi;
+use MPScholten\GithubApi\Api\PaginationIterator;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\TemplateUrlGenerator;
 
@@ -47,16 +48,7 @@ class Organization extends AbstractModelApi
     private function loadRepositories($type)
     {
         $url = TemplateUrlGenerator::generate($this->getAttribute('repos_url'), []);
-
-        $repositories = [];
-        foreach ($this->get($url, ['type' => $type]) as $data) {
-            $repository = new Repository($this->client);
-            $repository->populate($data);
-
-            $repositories[] = $repository;
-        }
-
-        return $repositories;
+        return $this->createPaginationIterator($url, Repository::CLASS_NAME, ['type' => $type]);
     }
 
     /**

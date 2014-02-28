@@ -64,6 +64,7 @@ class OrganizationTest extends AbstractTestCase
 
         $repositories = $organization->getRepositories();
         $this->assertCount(1, $repositories);
+        $this->assertInstanceOf('MPScholten\GithubApi\Api\PaginationIterator', $repositories);
 
         foreach ($repositories as $repository) {
             $this->assertInstanceOf(Repository::CLASS_NAME, $repository);

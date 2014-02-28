@@ -146,16 +146,7 @@ class User extends AbstractModelApi
     protected function loadRepositories($type)
     {
         $url = TemplateUrlGenerator::generate($this->getAttribute('repos_url'), []);
-
-        $repositories = [];
-        foreach ($this->get($url, ['type' => $type]) as $data) {
-            $repository = new Repository($this->client);
-            $repository->populate($data);
-
-            $repositories[] = $repository;
-        }
-
-        return $repositories;
+        return $this->createPaginationIterator($url, Repository::CLASS_NAME, ['type' => $type]);
     }
 
     /**

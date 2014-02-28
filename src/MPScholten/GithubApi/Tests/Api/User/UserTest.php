@@ -49,6 +49,7 @@ class UserTest extends AbstractTestCase
         $user->populate($this->loadJsonFixture('fixture_user.json'));
 
         $repositories = $user->getRepositories();
+        $this->assertInstanceOf('MPScholten\GithubApi\Api\PaginationIterator', $repositories);
         $this->assertCount(1, $repositories);
 
         foreach ($repositories as $repository) {

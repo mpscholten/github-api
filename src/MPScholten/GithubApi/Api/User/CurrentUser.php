@@ -54,14 +54,7 @@ class CurrentUser extends User
 
     protected function loadRepositories($type)
     {
-        $repositories = [];
-        foreach ($this->get('user/repos', ['type' => $type]) as $data) {
-            $repository = new Repository($this->client);
-            $repository->populate($data);
-
-            $repositories[] = $repository;
-        }
-
-        return $repositories;
+        $url = 'user/repos';
+        return $this->createPaginationIterator($url, Repository::CLASS_NAME, ['type' => $type]);
     }
 }

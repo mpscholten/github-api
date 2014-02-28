@@ -71,11 +71,16 @@ class AbstractApi
         }
     }
 
-    protected function createPaginationIterator($url, $class)
+    protected function createPaginationIterator($url, $class, $query = [])
     {
+        $request = $this->client->get($url);
+        foreach ($query as $key => $value) {
+            $request->getQuery()->add($key, $value);
+        }
+
         return new PaginationIterator(
             $this->client,
-            $this->client->get($url),
+            $request,
             function ($response, $client) use ($class) {
                 $models = [];
                 foreach ($response as $data) {
