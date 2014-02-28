@@ -13,6 +13,7 @@
 
             <exclude>
                 <directory>./src/MPScholten/GithubApi/Tests/</directory>
+                <directory>./src/MPScholten/GithubApi/example/</directory>
             </exclude>
         </whitelist>
     </filter>
