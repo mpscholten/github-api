@@ -2,13 +2,16 @@
 
 namespace MPScholten\GithubApi\Api;
 
+/**
+ * This class provides several helpers for working with attributes.
+ */
 abstract class AbstractModelApi extends AbstractApi implements PopulateableInterface
 {
-    private $attributeStorage = [];
-    private $loadedMap = [];
+    private $attributes = [];
+    private $isLoaded = [];
 
     /**
-     * Fully loads the model
+     * Fully loads the model from GitHub.
      */
     abstract protected function load();
 
@@ -18,8 +21,8 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
     public function populate(array $data)
     {
         foreach ($data as $name => $value) {
-            $this->loadedMap[$name] = true;
-            $this->attributeStorage[$name] = $value;
+            $this->isLoaded[$name] = true;
+            $this->attributes[$name] = $value;
         }
     }
 
@@ -29,7 +32,7 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
      */
     protected function isAttributeLoaded($attribute)
     {
-        return array_key_exists($attribute, $this->loadedMap) && $this->loadedMap[$attribute];
+        return array_key_exists($attribute, $this->isLoaded) && $this->isLoaded[$attribute];
     }
 
     /**
@@ -46,6 +49,6 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
             $this->load();
         }
 
-        return $this->attributeStorage[$attribute];
+        return $this->attributes[$attribute];
     }
 }
