@@ -8,6 +8,7 @@ This library currently supports PHP5.4 and up.
 
 ### Features ###
 * very easy to use and ide-friendly
+* pur object oriented interface
 * automatically handled pagination
 * psr-2
 
