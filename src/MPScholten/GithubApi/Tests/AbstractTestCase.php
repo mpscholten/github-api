@@ -31,7 +31,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
         return $this->getMockBuilder('Guzzle\Http\Message\Response');
     }
 
-    protected function mockSimpleRequest($httpClientMock, $method, $responseBody)
+    protected function mockSimpleRequest($httpClientMock, $method, $responseBody, $url = null)
     {
         $response = $this->createResponseMockBuilder()
             ->disableOriginalConstructor()
@@ -45,6 +45,10 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 
         $response->expects($this->any())->method('getBody')->will($this->returnValue($responseBody));
 
-        $httpClientMock->expects($this->once())->method($method)->will($this->returnValue($request));
+        if ($url === null) {
+            $httpClientMock->expects($this->once())->method($method)->will($this->returnValue($request));
+        } else {
+            $httpClientMock->expects($this->once())->method($method)->with($url)->will($this->returnValue($request));
+        }
     }
 }

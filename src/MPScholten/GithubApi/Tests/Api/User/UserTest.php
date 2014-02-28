@@ -45,10 +45,10 @@ class UserTest extends AbstractTestCase
         $this->mockSimpleRequest($httpClient, 'get', $responseBody);
 
 
-        $organization = new User($httpClient);
-        $organization->populate($this->loadJsonFixture('fixture_user.json'));
+        $user = new User($httpClient);
+        $user->populate($this->loadJsonFixture('fixture_user.json'));
 
-        $repositories = $organization->getRepositories();
+        $repositories = $user->getRepositories();
         $this->assertCount(1, $repositories);
 
         foreach ($repositories as $repository) {

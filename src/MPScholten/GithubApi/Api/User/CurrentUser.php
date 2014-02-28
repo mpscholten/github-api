@@ -4,7 +4,7 @@
 namespace MPScholten\GithubApi\Api\User;
 
 
-use  Guzzle\Http\Client;
+use Guzzle\Http\ClientInterface;
 use MPScholten\GithubApi\Api\Repository\Repository;
 
 /**
@@ -15,15 +15,8 @@ use MPScholten\GithubApi\Api\Repository\Repository;
  */
 class CurrentUser extends User
 {
-    // relations
     protected $repositories = [];
     protected $organizations;
-
-    public function __construct(Client $client)
-    {
-        parent::__construct($client);
-        $this->load();
-    }
 
     /**
      * @link http://developer.github.com/v3/users/#get-the-authenticated-user
