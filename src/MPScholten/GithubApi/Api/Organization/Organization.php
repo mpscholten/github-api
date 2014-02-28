@@ -12,8 +12,6 @@ class Organization extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
 
-    protected $attributes = ['id', 'login', 'name', 'email', 'avatar_url', 'url', 'html_url'];
-
     protected function load()
     {
         $url = $this->getAttribute('url');

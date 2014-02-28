@@ -14,26 +14,6 @@ use MPScholten\GithubApi\Tests\Api\Repository\CommitTest;
 
 class Repository extends AbstractModelApi
 {
-    protected $attributes = [
-        'id',
-        'name',
-        'full_name',
-        'description',
-        'private',
-        'fork',
-        'default_branch',
-        'collaborators_url',
-        'keys_url',
-        'commits_url',
-        'git_url',
-        'ssh_url',
-        'html_url',
-        'branches_url',
-        'owner',
-        'url'
-    ];
-
-    // relations
     protected $owner;
     protected $collaborators;
     protected $keys;

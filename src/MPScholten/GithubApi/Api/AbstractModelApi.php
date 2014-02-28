@@ -5,7 +5,6 @@ namespace MPScholten\GithubApi\Api;
 
 
 use Guzzle\Http\ClientInterface;
-use MPScholten\GithubApi\Utils;
 
 abstract class AbstractModelApi extends AbstractApi implements PopulateableInterface
 {
@@ -15,16 +14,7 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
     public function __construct(ClientInterface $client = null)
     {
         parent::__construct($client);
-
-        if (!property_exists($this, 'attributes')) {
-            throw new \ErrorException(sprintf(
-                'Please define %s::$attributes for using %s',
-                get_class($this),
-                __CLASS__
-            ));
-        }
     }
-
 
     /**
      * Fully loads the model
@@ -36,11 +26,9 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
      */
     public function populate(array $data)
     {
-        foreach ($this->attributes as $attribute) {
-            if (Utils::flatArrayKeyExists($data, $attribute)) {
-                $this->attributeStorage[$attribute] = Utils::flatArrayGet($data, $attribute);
-                $this->loadedMap[$attribute] = true;
-            }
+        foreach ($data as $name => $value) {
+            $this->loadedMap[$name] = true;
+            $this->attributeStorage[$name] = $value;
         }
     }
 
@@ -51,14 +39,6 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
 
     protected function getAttribute($attribute)
     {
-        if (!in_array($attribute, $this->attributes, true)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid attribute "%s", expected one of "%s"',
-                $attribute,
-                implode(', ', $this->attributes)
-            ));
-        }
-
         if (!$this->isAttributeLoaded($attribute)) {
             $this->load();
         }

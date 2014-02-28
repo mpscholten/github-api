@@ -16,8 +16,6 @@ class Commit extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
 
-    protected $attributes = ['commit.message', 'sha', 'url', 'committer'];
-
     protected $committer;
 
     protected function load()
@@ -31,7 +29,7 @@ class Commit extends AbstractModelApi
      */
     public function getMessage()
     {
-        return $this->getAttribute('commit.message');
+        return $this->getAttribute('commit')['message'];
     }
 
     /**

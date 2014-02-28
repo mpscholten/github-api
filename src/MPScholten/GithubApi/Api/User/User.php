@@ -18,20 +18,6 @@ class User extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
 
-    protected $attributes = [
-        'id',
-        'login',
-        'avatar_url',
-        'gravatar_url',
-        'organizations_url',
-        'name',
-        'email',
-        'url',
-        'html_url',
-        'repositories_url',
-        'gravatar_id'
-    ];
-
     private $organizations;
     private $repositories;
 
