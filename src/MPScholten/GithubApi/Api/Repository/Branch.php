@@ -11,16 +11,12 @@ class Branch extends AbstractApi implements PopulateableInterface
 {
     const CLASS_NAME = __CLASS__;
 
-    // attributes
     private $name;
-
-    // relations
     private $latestCommit;
 
     public function populate(array $data)
     {
         $this->name = $data['name'];
-
         $this->latestCommit = new Commit();
         $this->latestCommit->populate($data['commit']);
     }

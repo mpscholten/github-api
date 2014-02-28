@@ -4,17 +4,10 @@
 namespace MPScholten\GithubApi\Api;
 
 
-use Guzzle\Http\ClientInterface;
-
 abstract class AbstractModelApi extends AbstractApi implements PopulateableInterface
 {
     private $attributeStorage = [];
     private $loadedMap = [];
-
-    public function __construct(ClientInterface $client = null)
-    {
-        parent::__construct($client);
-    }
 
     /**
      * Fully loads the model
@@ -22,7 +15,7 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
     abstract protected function load();
 
     /**
-     * @see getModelAttributes()
+     * Populates the model with the given data.
      */
     public function populate(array $data)
     {
@@ -32,11 +25,23 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
         }
     }
 
+    /**
+     * @param string $attribute The name of the attribute
+     * @return boolean Whenever an attribute is loaded or not
+     */
     protected function isAttributeLoaded($attribute)
     {
         return array_key_exists($attribute, $this->loadedMap) && $this->loadedMap[$attribute];
     }
 
+    /**
+     * Returns the value of the attribute with the name $attribute.
+     *
+     * In case the attribute is not loaded yet, tries to reload the model. This will help us in cases where GitHub
+     * doesn't give us the full model.
+     *
+     * @see isAttributeLoaded()
+     */
     protected function getAttribute($attribute)
     {
         if (!$this->isAttributeLoaded($attribute)) {

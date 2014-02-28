@@ -3,10 +3,7 @@
 
 namespace MPScholten\GithubApi\Api\Organization;
 
-
-use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\PopulateableInterface;
 
 class Organization extends AbstractModelApi
 {
@@ -18,26 +15,43 @@ class Organization extends AbstractModelApi
         $this->populate($this->get($url));
     }
 
+    /**
+     * @return string The login name of the Organization, e.g. "github"
+     */
     public function getLogin()
     {
         return $this->getAttribute('login');
     }
 
+    /**
+     * @return string The name of the Organization, e.g. "GitHub"
+     */
     public function getName()
     {
         return $this->getAttribute('name');
     }
 
+    /**
+     * @return string The public email adress of the Organization
+     */
     public function getEmail()
     {
         return $this->getAttribute('email');
     }
 
+    /**
+     * @return integer
+     */
     public function getId()
     {
         return $this->getAttribute('id');
     }
 
+    /**
+     * @param string $type Can be 'html' or 'api'
+     * @return string The url, e.g. https://github.com/octocat (if $type is html)
+     * @throws \InvalidArgumentException
+     */
     public function getUrl($type = 'html')
     {
         switch ($type) {
@@ -54,6 +68,9 @@ class Organization extends AbstractModelApi
         ));
     }
 
+    /**
+     * @return string The avatar url of the Organization, e.g. "https://github.com/images/error/octocat_happy.gif"
+     */
     public function getAvatarUrl()
     {
         return $this->getAttribute('avatar_url');
