@@ -4,16 +4,16 @@
          colors="true"
         >
     <testsuite name="Github Api Testsuite">
-        <directory>./src/MPScholten/GithubApi/Tests/</directory>
+        <directory>./src/Tests/</directory>
     </testsuite>
 
     <filter>
         <whitelist>
-            <directory>./src/MPScholten/GithubApi/</directory>
+            <directory>./src/</directory>
 
             <exclude>
-                <directory>./src/MPScholten/GithubApi/Tests/</directory>
-                <directory>./src/MPScholten/GithubApi/example/</directory>
+                <directory>./src/Tests/</directory>
+                <directory>./src/example/</directory>
             </exclude>
         </whitelist>
     </filter>
