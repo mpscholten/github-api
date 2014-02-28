@@ -9,6 +9,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": ">=5.4.0",
         "guzzle/guzzle": "~3.7",
         "doctrine/cache": "1.4.*@dev"
     },
