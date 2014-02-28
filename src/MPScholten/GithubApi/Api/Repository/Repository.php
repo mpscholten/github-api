@@ -47,7 +47,17 @@ class Repository extends AbstractModelApi
      */
     protected function load()
     {
-        $url = $this->getAttribute('url');
+        if ($this->isAttributeLoaded('url')) {
+            $url = $this->getAttribute('url');
+        } elseif ($this->isAttributeLoaded('owner') && $this->isAttributeLoaded('name')) {
+            $url = TemplateUrlGenerator::generate(
+                '/repos/{/owner}/{/repo}',
+                ['owner' => $this->getOwner()->getLogin(), 'name' => $this->getName()]
+            );
+        } else {
+            throw new \RuntimeException('Unable to guess repository url, not enough informations given.');
+        }
+
         $this->populate($this->get($url));
     }
 

@@ -8,11 +8,14 @@ use Doctrine\Common\Cache\FilesystemCache;
 use Guzzle\Cache\DoctrineCacheAdapter;
 use Guzzle\Http\Client;
 use Guzzle\Plugin\Cache\CachePlugin;
+use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\Api\Search\Search;
 use MPScholten\GithubApi\Api\User\CurrentUser;
+use MPScholten\GithubApi\Api\User\User;
 use MPScholten\GithubApi\Auth\AuthenticationMethodInterface;
 use MPScholten\GithubApi\Auth\NullAuthenticationMethod;
 use MPScholten\GithubApi\Auth\OAuth;
+use MPScholten\GithubApi\Exception\GithubException;
 
 class Github
 {
@@ -72,5 +75,33 @@ class Github
     {
         $api = new Search($this->client);
         return $api;
+    }
+
+    public function getUser($login)
+    {
+        $user = new User($this->client);
+        $user->populate(['login' => $login]);
+
+        try {
+            $user->getId();
+        } catch (GithubException $e) {
+            throw new GithubException(sprintf('User %s was not found.', $login), 0, $e);
+        }
+
+        return $user;
+    }
+
+    public function getRepository($owner, $name)
+    {
+        $repository = new Repository($this->client);
+        $repository->populate(['owner' => ['login' => $owner], 'name' => $name]);
+
+        try {
+            $repository->getId();
+        } catch (GithubException $e) {
+            throw new GithubException(sprintf('Repository %s was not found.', $name), 0, $e);
+        }
+
+        return $repository;
     }
 }

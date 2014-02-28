@@ -44,7 +44,7 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
         }
     }
 
-    private function isLoaded($attribute)
+    protected function isAttributeLoaded($attribute)
     {
         return array_key_exists($attribute, $this->loadedMap) && $this->loadedMap[$attribute];
     }
@@ -59,7 +59,7 @@ abstract class AbstractModelApi extends AbstractApi implements PopulateableInter
             ));
         }
 
-        if (!$this->isLoaded($attribute)) {
+        if (!$this->isAttributeLoaded($attribute)) {
             $this->load();
         }
 
