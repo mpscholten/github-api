@@ -13,7 +13,7 @@ class OrganizationTest extends AbstractTestCase
     public function testPopulateWithSampleData()
     {
         $organization = new Organization();
-        $organization->populate($this->loadJsonFixture('fixture2.json'));
+        $organization->populate($this->loadJsonFixture('fixture_organization_full.json'));
 
         $this->assertEquals('github', $organization->getLogin());
         $this->assertEquals(1, $organization->getId());
@@ -26,10 +26,10 @@ class OrganizationTest extends AbstractTestCase
     private function setupLazyLoadingTest()
     {
         $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture2.json')));
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_organization_full.json')));
 
         $organization = new Organization($httpClient);
-        $organization->populate($this->loadJsonFixture('fixture1.json'));
+        $organization->populate($this->loadJsonFixture('fixture_organization.json'));
 
         return $organization;
     }
@@ -60,7 +60,7 @@ class OrganizationTest extends AbstractTestCase
 
 
         $organization = new Organization($httpClient);
-        $organization->populate($this->loadJsonFixture('fixture2.json'));
+        $organization->populate($this->loadJsonFixture('fixture_organization_full.json'));
 
         $repositories = $organization->getRepositories();
         $this->assertCount(1, $repositories);
@@ -85,7 +85,7 @@ class OrganizationTest extends AbstractTestCase
     public function testInvalidUrlTypeThrowsException()
     {
         $organization = new Organization();
-        $organization->populate($this->loadJsonFixture('fixture2.json'));
+        $organization->populate($this->loadJsonFixture('fixture_organization_full.json'));
         $organization->getUrl('invalid type');
     }
 }
