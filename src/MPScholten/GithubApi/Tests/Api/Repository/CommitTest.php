@@ -5,6 +5,7 @@ namespace MPScholten\GithubApi\Tests\Api\Repository;
 
 
 use MPScholten\GithubApi\Api\Repository\Commit;
+use MPScholten\GithubApi\Api\User\User;
 use MPScholten\GithubApi\Tests\AbstractTestCase;
 
 class CommitTest extends AbstractTestCase
@@ -16,5 +17,22 @@ class CommitTest extends AbstractTestCase
 
         $this->assertEquals('Fix all the bugs', $commit->getMessage());
         $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $commit->getCommitter());
+    }
+
+    public function testCommitWillLazyLoadInformation()
+    {
+        $data = $this->loadJsonFixture('fixture5.json');
+        unset($data['committer']);
+
+        $this->assertArrayNotHasKey('committer', $data);
+
+        $httpClient = $this->createHttpClientMock();
+        $this->mockSimpleRequest($httpClient, 'GET', json_encode($this->loadJsonFixture('fixture5.json')));
+
+        $commit = new Commit($httpClient);
+        $commit->populate($data);
+
+        $this->assertInstanceOf(User::CLASS_NAME, $commit->getCommitter());
+
     }
 }
