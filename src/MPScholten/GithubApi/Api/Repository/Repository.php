@@ -14,6 +14,8 @@ use MPScholten\GithubApi\Tests\Api\Repository\CommitTest;
 
 class Repository extends AbstractModelApi
 {
+    const CLASS_NAME = __CLASS__;
+
     protected $owner;
     protected $collaborators;
     protected $keys;
