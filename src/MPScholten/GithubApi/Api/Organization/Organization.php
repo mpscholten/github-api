@@ -1,10 +1,8 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api\Organization;
 
 use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\PaginationIterator;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\TemplateUrlGenerator;
 

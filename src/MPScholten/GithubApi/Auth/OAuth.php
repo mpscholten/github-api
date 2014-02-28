@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Auth;
-
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Message\RequestInterface;

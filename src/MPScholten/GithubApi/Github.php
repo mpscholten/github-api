@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MPScholten\GithubApi;
-
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Guzzle\Cache\DoctrineCacheAdapter;

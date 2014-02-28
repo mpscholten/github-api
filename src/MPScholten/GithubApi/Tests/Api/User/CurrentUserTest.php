@@ -4,7 +4,7 @@
 namespace MPScholten\GithubApi\Tests\Api\User;
 
 
-use Guzzle\Http\QueryString;
+
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\Api\User\CurrentUser;
 use MPScholten\GithubApi\Tests\AbstractTestCase;

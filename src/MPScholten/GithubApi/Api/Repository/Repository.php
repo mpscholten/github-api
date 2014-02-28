@@ -1,16 +1,10 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api\Repository;
 
-
-use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\PaginationIterator;
-use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\User\User;
 use MPScholten\GithubApi\TemplateUrlGenerator;
-use MPScholten\GithubApi\Tests\Api\Repository\CommitTest;
 
 class Repository extends AbstractModelApi
 {

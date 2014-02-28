@@ -1,12 +1,8 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api\Repository;
 
-
-use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\PopulateableInterface;
 use MPScholten\GithubApi\Api\User\User;
 
 /**

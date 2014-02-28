@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MPScholten\GithubApi;
-
 
 use Guzzle\Http\Message\Response;
 

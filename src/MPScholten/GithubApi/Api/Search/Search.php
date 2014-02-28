@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api\Search;
-
 
 use MPScholten\GithubApi\Api\AbstractApi;
 use MPScholten\GithubApi\Api\PaginationIterator;

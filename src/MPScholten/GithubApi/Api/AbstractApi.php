@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api;
-
 
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
@@ -81,7 +79,7 @@ class AbstractApi
         return new PaginationIterator(
             $this->client,
             $request,
-            function ($response, $client) use ($class) {
+            function ($response) use ($class) {
                 $models = [];
                 foreach ($response as $data) {
                     $model = new $class($this->client);

@@ -1,10 +1,7 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api\User;
 
-
-use Guzzle\Http\ClientInterface;
 use MPScholten\GithubApi\Api\Repository\Repository;
 
 /**

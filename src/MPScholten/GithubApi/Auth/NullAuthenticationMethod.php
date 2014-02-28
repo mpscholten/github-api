@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Auth;
-
 
 class NullAuthenticationMethod implements AuthenticationMethodInterface
 {

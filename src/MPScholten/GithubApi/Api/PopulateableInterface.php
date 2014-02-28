@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api;
 
 interface PopulateableInterface

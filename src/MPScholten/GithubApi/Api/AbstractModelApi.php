@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MPScholten\GithubApi\Api;
-
 
 abstract class AbstractModelApi extends AbstractApi implements PopulateableInterface
 {
