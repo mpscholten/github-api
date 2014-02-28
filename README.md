@@ -33,15 +33,11 @@ The easiest way to get started is by adding `mpscholten/github-api` to your comp
 Don't worry about pagination, all paginated collections are using a custom `Iterator` so we can automatically load more results if you need them. So you can focus on what you really want to do.
 
 **Example**
-This will print you the last 300 commits.
+This will print you all commits of the repository.
 ```php
-    foreach ($repository->getCommits() as $count => $commit) {
-        echo $commit->getMessage() . "\n";
-
-        if ($count > 300) {
-            break;
-        }
-    }
+foreach ($repository->getCommits() as $commit) {
+    echo $commit->getMessage() . "\n";
+}
 ```
 
 ### Caching ###
