@@ -5,6 +5,7 @@ namespace MPScholten\GithubApi\Tests\Api\Organization;
 
 
 use MPScholten\GithubApi\Api\Organization\Organization;
+use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\Tests\AbstractTestCase;
 
 class OrganizationTest extends AbstractTestCase
@@ -62,6 +63,11 @@ class OrganizationTest extends AbstractTestCase
         $organization->populate($this->loadJsonFixture('fixture2.json'));
 
         $repositories = $organization->getRepositories();
+        $this->assertCount(1, $repositories);
+
+        foreach ($repositories as $repository) {
+            $this->assertInstanceOf(Repository::CLASS_NAME, $repository);
+        }
     }
 
     /**
