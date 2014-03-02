@@ -1,16 +1,20 @@
 github-api
 ==========
+[![Build Status](https://travis-ci.org/mpscholten/github-api.png?branch=master)](https://travis-ci.org/mpscholten/github-api)
 
 An easy to use github api client for PHP.
 
 ### Requirements ###
-This library currently supports PHP5.4 and up.
+You need php 5.4 or higher to use this library.
 
 ### Features ###
 * very easy to use and ide-friendly
-* pur object oriented interface
+* pure object oriented interface
 * automatically handled pagination
 * psr-2
+
+## Get started ##
+Install via composer: `composer require mpscholten/github-api`
 
 ### Let me see some code! ###
 
@@ -26,9 +30,6 @@ foreach ($github->getCurrentUser()->getRepositories() as $repository) {
 }
   
 ```
-
-### Get started ###
-The easiest way to get started is by adding `mpscholten/github-api` to your composer.json.
 
 ### Pagination ###
 Don't worry about pagination, all paginated collections are using a custom `Iterator` so we can automatically load more results if you need them. So you can focus on what you really want to do.
@@ -51,3 +52,10 @@ use MPScholten\GithubApi\Github;
 $github = Github::create('oauth token', 'my-cache-dir/');
 ```
 
+### Testing ###
+```bash
+$ phpunit
+```
+
+### Constributing ###
+Feel free to send pull request!
