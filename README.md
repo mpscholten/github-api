@@ -1,34 +1,112 @@
 github-api
 ==========
+[![Build Status](https://travis-ci.org/mpscholten/github-api.png?branch=master)](https://travis-ci.org/mpscholten/github-api)
 
 An easy to use github api client for PHP.
 
 ### Requirements ###
-This library currently supports PHP5.4 and up.
+You need php 5.4 or higher to use this library.
 
 ### Features ###
 * very easy to use and ide-friendly
-* pur object oriented interface
+* pure object oriented interface
 * automatically handled pagination
 * psr-2
+ 
+----
 
-### Let me see some code! ###
+## Get started ##
+Install via composer: `composer require mpscholten/github-api`
 
+
+### Auth ###
+#### OAuth ####
+
+To use oauth just pass your oauth token to `Github::create()` like this.
 ```php
 <?php
 
 use MPScholten\GithubApi\Github;
 
 $github = Github::create('oauth token');
-
-foreach ($github->getCurrentUser()->getRepositories() as $repository) {
-    echo $repository->getName() . "\n";
-}
-  
 ```
 
-### Get started ###
-The easiest way to get started is by adding `mpscholten/github-api` to your composer.json.
+#### No authentication ####
+If you want to use the public api without any authentication you can do this by just calling `Github::create` without any arguments.
+```php
+<?php
+
+use MPScholten\GithubApi\Github;
+
+$github = Github::create();
+```
+
+### User API ###
+**In case you are using oauth** you can get the current logged-in user by calling
+```php
+$user = Github::create('oauth token')->getCurrentUser();
+```
+**Otherwise** you can get users by their github username.
+```php
+$user = Github::create()->getUser('mpscholten');
+```
+
+With the user object you can now do
+```php
+$user->getEmail();
+$user->getName();
+$user->getUrl();
+$user->getAvatarUrl();
+// ...
+
+// relations
+$user->getRepositories(); // returns an array of Repositories owned by the user
+$user->getOrganizations();
+
+// list the users repositories
+foreach ($user->getRepositories() as $repository) {
+    echo $repository->getName();
+}
+```
+
+
+### Repository API ###
+```php
+$repository = Github::create()->getRepository('mpscholten', 'github-api');
+$repository->getName();
+$repository->getCommits();
+$repository->getBranches();
+
+$repository->getOwner(); // returns a user object
+$repository->getOwner()->getName(); // chaining 
+
+// list the collaborators of the repo
+foreach ($repository->getCollaborators() as $collaborators) {
+    echo $collaborators->getName();
+}
+```
+
+### Organization API ###
+```php
+foreach ($user->getOrganizations() as $org) {
+    $org->getName(); // e.g. GitHub
+    $org->getLocation(); // e.g. San Francisco
+}
+```
+
+### Search API ###
+You can use the search api by calling `$github->getSearch()`
+```php
+// this is equals to https://github.com/search?q=language%3Aphp+&type=Repositories&ref=searchresults
+foreach (Github::create()->getSearch()->findRepositories('language:php') as $repo) {
+    $repo->getName();
+    // ...
+}
+```
+
+
+----
+
 
 ### Pagination ###
 Don't worry about pagination, all paginated collections are using a custom `Iterator` so we can automatically load more results if you need them. So you can focus on what you really want to do.
@@ -51,3 +129,10 @@ use MPScholten\GithubApi\Github;
 $github = Github::create('oauth token', 'my-cache-dir/');
 ```
 
+### Testing ###
+```bash
+$ phpunit
+```
+
+### Contributing ###
+Feel free to send pull request!
