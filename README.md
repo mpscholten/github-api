@@ -104,6 +104,15 @@ foreach (Github::create()->getSearch()->findRepositories('language:php') as $rep
 }
 ```
 
+### Release API ###
+```php
+foreach ($repository->getReleases() as $release) {
+    $release->getUrl(); // https://github.com/octocat/Hello-World/releases/v1.0.0
+    $release->getUrl('zipball'); // https://api.github.com/repos/octocat/Hello-World/zipball/v1.0.0
+    $release->getCreatedAt()->format('Y-m-d H:i:s');
+}
+```
+
 
 ----
 
