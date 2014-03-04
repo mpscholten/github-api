@@ -6,6 +6,7 @@ namespace MPScholten\GithubApi\Tests\Api\Repository;
 
 use MPScholten\GithubApi\Api\Repository\Branch;
 use MPScholten\GithubApi\Api\Repository\Key;
+use MPScholten\GithubApi\Api\Repository\Release;
 use MPScholten\GithubApi\Api\Repository\Repository;
 use MPScholten\GithubApi\Tests\AbstractTestCase;
 
@@ -85,6 +86,19 @@ class RepositoryTest extends AbstractTestCase
             $repository->getDeployKeys(),
             'getDeployKeys should return the same as getKeys'
         );
+    }
+
+    public function testLazyLoadingReleases()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_releases.json')));
+
+        $repository = new Repository($httpClient);
+        $repository->populate($this->loadJsonFixture('fixture_repository.json'));
+
+        foreach ($repository->getReleases() as $release) {
+            $this->assertInstanceOf(Release::CLASS_NAME, $release);
+        }
     }
 
     public function testAddKey()

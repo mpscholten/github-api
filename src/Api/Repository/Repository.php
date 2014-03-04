@@ -16,6 +16,7 @@ class Repository extends AbstractModelApi
     protected $commits;
     protected $hooks;
     protected $branches;
+    protected $releases;
 
 
     /**
@@ -137,11 +138,32 @@ class Repository extends AbstractModelApi
 
     /**
      * @link http://developer.github.com/v3/repos/keys/#list
+     *
      * @see Repository::getKeys()
      */
     public function getDeployKeys()
     {
         return $this->getKeys();
+    }
+
+    protected function loadReleases()
+    {
+        $url = TemplateUrlGenerator::generate($this->getAttribute('releases_url'), ['id' => null]);
+        return $this->createPaginationIterator($url, Release::CLASS_NAME);
+    }
+
+    /**
+     * @link http://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
+     *
+     * @return Release[]
+     */
+    public function getReleases()
+    {
+        if ($this->releases === null) {
+            $this->releases = $this->loadReleases();
+        }
+
+        return $this->releases;
     }
 
     /**
