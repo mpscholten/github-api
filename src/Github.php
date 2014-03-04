@@ -63,18 +63,29 @@ class Github
         return new Github($client, $authenticationMethod);
     }
 
+    /**
+     * @return CurrentUser Returns the current logged-in user in case you are using oauth
+     */
     public function getCurrentUser()
     {
         $api = new CurrentUser($this->client);
         return $api;
     }
 
+    /**
+     * @return Search
+     */
     public function getSearch()
     {
         $api = new Search($this->client);
         return $api;
     }
 
+    /**
+     * @param $login string The login name of the user, e.g. "octocat"
+     * @throws Exception\GithubException In case the user was not found
+     * @return Search
+     */
     public function getUser($login)
     {
         $user = new User($this->client);
@@ -89,6 +100,12 @@ class Github
         return $user;
     }
 
+    /**
+     * @param $owner string The login name of the repository owner, e.g. "octocat"
+     * @param $name string The repository name, e.g. "Hello-World"
+     * @throws Exception\GithubException In case the repository was not found
+     * @return Repository
+     */
     public function getRepository($owner, $name)
     {
         $repository = new Repository($this->client);
