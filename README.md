@@ -33,6 +33,13 @@ $github = Github::create('oauth token');
 
 #### No authentication ####
 If you want to use the public api without any authentication you can do this by just calling `Github::create` without any arguments.
+```php
+<?php
+
+use MPScholten\GithubApi\Github;
+
+$github = Github::create();
+```
 
 ### User API ###
 **In case you are using oauth** you can get the current logged-in user by calling
