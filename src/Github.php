@@ -15,7 +15,7 @@ use MPScholten\GitHubApi\Auth\NullAuthenticationMethod;
 use MPScholten\GitHubApi\Auth\OAuth;
 use MPScholten\GitHubApi\Exception\GithubException;
 
-class GitHub
+class Github
 {
     private $client;
 
@@ -38,7 +38,7 @@ class GitHub
      * @var null|string|false $cachePath If $cachePath is null we will use in-memory caching, if it's a string we will
      *                                   use file caching. In case it's false we disable any caching
      *
-     * @return GitHub
+     * @return Github
      */
     public static function create($authenticationMethod = null, $cachePath = null)
     {
@@ -60,7 +60,7 @@ class GitHub
             $authenticationMethod = new NullAuthenticationMethod();
         }
 
-        return new GitHub($client, $authenticationMethod);
+        return new Github($client, $authenticationMethod);
     }
 
     /**
