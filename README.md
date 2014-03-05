@@ -1,6 +1,6 @@
 github-api
 ==========
-[![Build Status](https://travis-ci.org/mpscholten/github-api.png?branch=master)](https://travis-ci.org/mpscholten/github-api)
+[![Build Status](https://travis-ci.org/mpscholten/github-api.png?branch=master)](https://travis-ci.org/mpscholten/github-api) [![Latest Stable Version](https://poser.pugx.org/mpscholten/github-api/v/stable.png)](https://packagist.org/packages/mpscholten/github-api) [![License](https://poser.pugx.org/mpscholten/github-api/license.png)](https://packagist.org/packages/mpscholten/github-api)
 
 An easy to use github api client for PHP.
 
@@ -16,7 +16,14 @@ You need php 5.4 or higher to use this library.
 ----
 
 ## Get started ##
-Install via composer: `composer require mpscholten/github-api`
+Install via composer: `composer require mpscholten/github-api v0.1`
+```json
+{
+    "require": {
+        "mpscholten/github-api": "v0.1"
+    }
+}
+```
 
 
 ### Auth ###
