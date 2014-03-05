@@ -1,12 +1,12 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\Repository;
+namespace MPScholten\GitHubApi\Tests\Api\Repository;
 
 
-use MPScholten\GithubApi\Api\Repository\Commit;
-use MPScholten\GithubApi\Api\User\User;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Repository\Commit;
+use MPScholten\GitHubApi\Api\User\User;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class CommitTest extends AbstractTestCase
 {
@@ -16,7 +16,7 @@ class CommitTest extends AbstractTestCase
         $commit->populate($this->loadJsonFixture('fixture5.json'));
 
         $this->assertEquals('Fix all the bugs', $commit->getMessage());
-        $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $commit->getCommitter());
+        $this->assertInstanceOf('MPScholten\GitHubApi\Api\User\User', $commit->getCommitter());
     }
 
     public function testCommitWillLazyLoadInformation()

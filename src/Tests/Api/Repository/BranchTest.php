@@ -1,11 +1,11 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\Repository;
+namespace MPScholten\GitHubApi\Tests\Api\Repository;
 
 
-use MPScholten\GithubApi\Api\Repository\Branch;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Repository\Branch;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class BranchTest extends AbstractTestCase
 {
@@ -15,6 +15,6 @@ class BranchTest extends AbstractTestCase
         $branch->populate($this->loadJsonFixture('fixture_branch.json'));
 
         $this->assertEquals('master', $branch->getName());
-        $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Commit', $branch->getLatestCommit());
+        $this->assertInstanceOf('MPScholten\GitHubApi\Api\Repository\Commit', $branch->getLatestCommit());
     }
 }

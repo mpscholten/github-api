@@ -1,11 +1,11 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\Repository;
+namespace MPScholten\GitHubApi\Api\Repository;
 
 use DateTime;
-use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\Git\Tag;
-use MPScholten\GithubApi\Api\User\User;
+use MPScholten\GitHubApi\Api\AbstractModelApi;
+use MPScholten\GitHubApi\Api\Git\Tag;
+use MPScholten\GitHubApi\Api\User\User;
 
 /**
  * @link http://developer.github.com/v3/repos/releases/

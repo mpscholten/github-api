@@ -1,12 +1,12 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\User;
+namespace MPScholten\GitHubApi\Tests\Api\User;
 
 
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\Api\User\User;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Api\User\User;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class UserTest extends AbstractTestCase
 {
@@ -49,7 +49,7 @@ class UserTest extends AbstractTestCase
         $user->populate($this->loadJsonFixture('fixture_user.json'));
 
         $repositories = $user->getRepositories();
-        $this->assertInstanceOf('MPScholten\GithubApi\Api\PaginationIterator', $repositories);
+        $this->assertInstanceOf('MPScholten\GitHubApi\Api\PaginationIterator', $repositories);
         $this->assertCount(1, $repositories);
 
         foreach ($repositories as $repository) {

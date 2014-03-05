@@ -1,10 +1,10 @@
 <?php
 
-namespace MPScholten\GithubApi\Api;
+namespace MPScholten\GitHubApi\Api;
 
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
-use MPScholten\GithubApi\ResponseDecoder;
+use MPScholten\GitHubApi\ResponseDecoder;
 
 class PaginationIterator implements \Iterator
 {

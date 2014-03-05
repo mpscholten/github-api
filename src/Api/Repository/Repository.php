@@ -1,10 +1,10 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\Repository;
+namespace MPScholten\GitHubApi\Api\Repository;
 
-use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\User\User;
-use MPScholten\GithubApi\TemplateUrlGenerator;
+use MPScholten\GitHubApi\Api\AbstractModelApi;
+use MPScholten\GitHubApi\Api\User\User;
+use MPScholten\GitHubApi\TemplateUrlGenerator;
 
 class Repository extends AbstractModelApi
 {

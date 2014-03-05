@@ -1,11 +1,11 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\Repository;
+namespace MPScholten\GitHubApi\Tests\Api\Repository;
 
 
-use MPScholten\GithubApi\Api\Git\Tag;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Git\Tag;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class TagTest extends AbstractTestCase
 {

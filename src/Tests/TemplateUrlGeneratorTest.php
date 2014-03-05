@@ -1,8 +1,8 @@
 <?php
 
-namespace MPScholten\GithubApi\Tests;
+namespace MPScholten\GitHubApi\Tests;
 
-use MPScholten\GithubApi\TemplateUrlGenerator;
+use MPScholten\GitHubApi\TemplateUrlGenerator;
 
 class TemplateUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 {

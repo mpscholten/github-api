@@ -1,6 +1,6 @@
 <?php
 
-namespace MPScholten\GithubApi;
+namespace MPScholten\GitHubApi;
 
 class TemplateUrlGenerator
 {

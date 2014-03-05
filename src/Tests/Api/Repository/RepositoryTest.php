@@ -1,14 +1,14 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\Repository;
+namespace MPScholten\GitHubApi\Tests\Api\Repository;
 
 
-use MPScholten\GithubApi\Api\Repository\Branch;
-use MPScholten\GithubApi\Api\Repository\Key;
-use MPScholten\GithubApi\Api\Repository\Release;
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Repository\Branch;
+use MPScholten\GitHubApi\Api\Repository\Key;
+use MPScholten\GitHubApi\Api\Repository\Release;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class RepositoryTest extends AbstractTestCase
 {
@@ -26,7 +26,7 @@ class RepositoryTest extends AbstractTestCase
         $this->assertEquals('octocat/Hello-World', $repository->getFullName());
         $this->assertEquals('master', $repository->getDefaultBranch());
 
-        $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $repository->getOwner());
+        $this->assertInstanceOf('MPScholten\GitHubApi\Api\User\User', $repository->getOwner());
         $this->assertEquals('octocat', $repository->getOwner()->getLogin());
     }
 
@@ -39,7 +39,7 @@ class RepositoryTest extends AbstractTestCase
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getCommits() as $commit) {
-            $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Commit', $commit);
+            $this->assertInstanceOf('MPScholten\GitHubApi\Api\Repository\Commit', $commit);
         }
     }
 
@@ -52,7 +52,7 @@ class RepositoryTest extends AbstractTestCase
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getCollaborators() as $collaborator) {
-            $this->assertInstanceOf('MPScholten\GithubApi\Api\User\User', $collaborator);
+            $this->assertInstanceOf('MPScholten\GitHubApi\Api\User\User', $collaborator);
         }
     }
 
@@ -78,7 +78,7 @@ class RepositoryTest extends AbstractTestCase
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getKeys() as $key) {
-            $this->assertInstanceOf('MPScholten\GithubApi\Api\Repository\Key', $key);
+            $this->assertInstanceOf('MPScholten\GitHubApi\Api\Repository\Key', $key);
         }
 
         $this->assertEquals(

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\User;
+namespace MPScholten\GitHubApi\Tests\Api\User;
 
 
 
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\Api\User\CurrentUser;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Api\User\CurrentUser;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class CurrentUserTest extends AbstractTestCase
 {

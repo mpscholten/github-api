@@ -1,9 +1,9 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\Repository;
+namespace MPScholten\GitHubApi\Api\Repository;
 
-use MPScholten\GithubApi\Api\AbstractApi;
-use MPScholten\GithubApi\Api\PopulateableInterface;
+use MPScholten\GitHubApi\Api\AbstractApi;
+use MPScholten\GitHubApi\Api\PopulateableInterface;
 
 /**
  * @link http://developer.github.com/v3/repos/keys/

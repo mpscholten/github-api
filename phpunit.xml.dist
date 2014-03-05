@@ -3,7 +3,7 @@
          bootstrap="./vendor/autoload.php"
          colors="true"
         >
-    <testsuite name="Github Api Testsuite">
+    <testsuite name="GitHub Api Testsuite">
         <directory>./src/Tests/</directory>
     </testsuite>
 

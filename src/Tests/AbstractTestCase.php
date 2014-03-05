@@ -1,6 +1,6 @@
 <?php
 
-namespace MPScholten\GithubApi\Tests;
+namespace MPScholten\GitHubApi\Tests;
 
 use Guzzle\Http\QueryString;
 

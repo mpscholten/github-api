@@ -1,12 +1,12 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\Organization;
+namespace MPScholten\GitHubApi\Tests\Api\Organization;
 
 
-use MPScholten\GithubApi\Api\Organization\Organization;
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Organization\Organization;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class OrganizationTest extends AbstractTestCase
 {
@@ -64,7 +64,7 @@ class OrganizationTest extends AbstractTestCase
 
         $repositories = $organization->getRepositories();
         $this->assertCount(1, $repositories);
-        $this->assertInstanceOf('MPScholten\GithubApi\Api\PaginationIterator', $repositories);
+        $this->assertInstanceOf('MPScholten\GitHubApi\Api\PaginationIterator', $repositories);
 
         foreach ($repositories as $repository) {
             $this->assertInstanceOf(Repository::CLASS_NAME, $repository);

@@ -1,6 +1,6 @@
 <?php
 
-namespace MPScholten\GithubApi\Auth;
+namespace MPScholten\GitHubApi\Auth;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Message\RequestInterface;

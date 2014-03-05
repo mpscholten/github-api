@@ -1,8 +1,8 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\Git;
+namespace MPScholten\GitHubApi\Api\Git;
 
-use MPScholten\GithubApi\Api\AbstractModelApi;
+use MPScholten\GitHubApi\Api\AbstractModelApi;
 
 /**
  * @link http://developer.github.com/v3/git/tags/

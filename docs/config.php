@@ -11,7 +11,7 @@ $iterator = Finder::create()
 ;
 
 return new Sami($iterator, [
-    'title' => 'Github Api',
+    'title' => 'GitHub Api',
     'theme' => 'default',
     'build_dir' => __DIR__.'/api/',
     'cache_dir' => __DIR__.'/api/cache',

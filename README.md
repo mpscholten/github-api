@@ -22,33 +22,33 @@ Install via composer: `composer require mpscholten/github-api`
 ### Auth ###
 #### OAuth ####
 
-To use oauth just pass your oauth token to `Github::create()` like this.
+To use oauth just pass your oauth token to `GitHub::create()` like this.
 ```php
 <?php
 
-use MPScholten\GithubApi\Github;
+use MPScholten\GitHubApi\GitHub;
 
-$github = Github::create('oauth token');
+$github = GitHub::create('oauth token');
 ```
 
 #### No authentication ####
-If you want to use the public api without any authentication you can do this by just calling `Github::create` without any arguments.
+If you want to use the public api without any authentication you can do this by just calling `GitHub::create` without any arguments.
 ```php
 <?php
 
-use MPScholten\GithubApi\Github;
+use MPScholten\GitHubApi\GitHub;
 
-$github = Github::create();
+$github = GitHub::create();
 ```
 
 ### User API ###
 **In case you are using oauth** you can get the current logged-in user by calling
 ```php
-$user = Github::create('oauth token')->getCurrentUser();
+$user = GitHub::create('oauth token')->getCurrentUser();
 ```
 **Otherwise** you can get users by their github username.
 ```php
-$user = Github::create()->getUser('mpscholten');
+$user = GitHub::create()->getUser('mpscholten');
 ```
 
 With the user object you can now do
@@ -72,7 +72,7 @@ foreach ($user->getRepositories() as $repository) {
 
 ### Repository API ###
 ```php
-$repository = Github::create()->getRepository('mpscholten', 'github-api');
+$repository = GitHub::create()->getRepository('mpscholten', 'github-api');
 $repository->getName();
 $repository->getCommits();
 $repository->getBranches();
@@ -98,7 +98,7 @@ foreach ($user->getOrganizations() as $org) {
 You can use the search api by calling `$github->getSearch()`
 ```php
 // this is equals to https://github.com/search?q=language%3Aphp+&type=Repositories&ref=searchresults
-foreach (Github::create()->getSearch()->findRepositories('language:php') as $repo) {
+foreach (GitHub::create()->getSearch()->findRepositories('language:php') as $repo) {
     $repo->getName();
     // ...
 }
@@ -129,13 +129,13 @@ foreach ($repository->getCommits() as $commit) {
 ```
 
 ### Caching ###
-It's builtin! By default we will use in-memory caching but you might want to use file caching. Just pass your cache directory to `Github::create()`, like this
+It's builtin! By default we will use in-memory caching but you might want to use file caching. Just pass your cache directory to `GitHub::create()`, like this
 ```php
 <?php
 
-use MPScholten\GithubApi\Github;
+use MPScholten\GitHubApi\GitHub;
 
-$github = Github::create('oauth token', 'my-cache-dir/');
+$github = GitHub::create('oauth token', 'my-cache-dir/');
 ```
 
 ### Testing ###

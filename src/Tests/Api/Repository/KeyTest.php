@@ -1,11 +1,11 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\Repository;
+namespace MPScholten\GitHubApi\Tests\Api\Repository;
 
 
-use MPScholten\GithubApi\Api\Repository\Key;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Repository\Key;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class KeyTest extends AbstractTestCase
 {

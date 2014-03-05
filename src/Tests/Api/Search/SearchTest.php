@@ -1,12 +1,12 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Api\Search;
+namespace MPScholten\GitHubApi\Tests\Api\Search;
 
 
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\Api\Search\Search;
-use MPScholten\GithubApi\Tests\AbstractTestCase;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Api\Search\Search;
+use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class SearchTest extends AbstractTestCase
 {

@@ -1,12 +1,12 @@
 <?php
 
 
-namespace MPScholten\GithubApi\Tests\Auth;
+namespace MPScholten\GitHubApi\Tests\Auth;
 
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Message\Request;
-use MPScholten\GithubApi\Auth\OAuth;
+use MPScholten\GitHubApi\Auth\OAuth;
 
 class OAuthTest extends \PHPUnit_Framework_TestCase
 {

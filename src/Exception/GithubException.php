@@ -1,6 +1,6 @@
 <?php
 
-namespace MPScholten\GithubApi\Exception;
+namespace MPScholten\GitHubApi\Exception;
 
 class GithubException extends \Exception
 {

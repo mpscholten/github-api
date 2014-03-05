@@ -1,10 +1,10 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\Organization;
+namespace MPScholten\GitHubApi\Api\Organization;
 
-use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\TemplateUrlGenerator;
+use MPScholten\GitHubApi\Api\AbstractModelApi;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\TemplateUrlGenerator;
 
 class Organization extends AbstractModelApi
 {

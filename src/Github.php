@@ -1,21 +1,21 @@
 <?php
 
-namespace MPScholten\GithubApi;
+namespace MPScholten\GitHubApi;
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Guzzle\Cache\DoctrineCacheAdapter;
 use Guzzle\Http\Client;
 use Guzzle\Plugin\Cache\CachePlugin;
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\Api\Search\Search;
-use MPScholten\GithubApi\Api\User\CurrentUser;
-use MPScholten\GithubApi\Api\User\User;
-use MPScholten\GithubApi\Auth\AuthenticationMethodInterface;
-use MPScholten\GithubApi\Auth\NullAuthenticationMethod;
-use MPScholten\GithubApi\Auth\OAuth;
-use MPScholten\GithubApi\Exception\GithubException;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Api\Search\Search;
+use MPScholten\GitHubApi\Api\User\CurrentUser;
+use MPScholten\GitHubApi\Api\User\User;
+use MPScholten\GitHubApi\Auth\AuthenticationMethodInterface;
+use MPScholten\GitHubApi\Auth\NullAuthenticationMethod;
+use MPScholten\GitHubApi\Auth\OAuth;
+use MPScholten\GitHubApi\Exception\GithubException;
 
-class Github
+class GitHub
 {
     private $client;
 
@@ -38,7 +38,7 @@ class Github
      * @var null|string|false $cachePath If $cachePath is null we will use in-memory caching, if it's a string we will
      *                                   use file caching. In case it's false we disable any caching
      *
-     * @return Github
+     * @return GitHub
      */
     public static function create($authenticationMethod = null, $cachePath = null)
     {
@@ -60,7 +60,7 @@ class Github
             $authenticationMethod = new NullAuthenticationMethod();
         }
 
-        return new Github($client, $authenticationMethod);
+        return new GitHub($client, $authenticationMethod);
     }
 
     /**

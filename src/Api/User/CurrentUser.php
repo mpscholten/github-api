@@ -1,8 +1,8 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\User;
+namespace MPScholten\GitHubApi\Api\User;
 
-use MPScholten\GithubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Api\Repository\Repository;
 
 /**
  * This class is mostly the same as User, the only difference is that it also loads some

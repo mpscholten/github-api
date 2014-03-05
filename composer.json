@@ -19,6 +19,6 @@
         "sami/sami": "1.4.*@dev"
     },
     "autoload": {
-        "psr-4": {"MPScholten\\GithubApi\\": "src/"}
+        "psr-4": {"MPScholten\\GitHubApi\\": "src/"}
     }
 }

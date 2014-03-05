@@ -1,11 +1,11 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\User;
+namespace MPScholten\GitHubApi\Api\User;
 
-use MPScholten\GithubApi\Api\AbstractModelApi;
-use MPScholten\GithubApi\Api\Organization\Organization;
-use MPScholten\GithubApi\Api\Repository\Repository;
-use MPScholten\GithubApi\TemplateUrlGenerator;
+use MPScholten\GitHubApi\Api\AbstractModelApi;
+use MPScholten\GitHubApi\Api\Organization\Organization;
+use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\TemplateUrlGenerator;
 
 /**
  * @link http://developer.github.com/v3/users/

@@ -1,11 +1,11 @@
 <?php
 
-namespace MPScholten\GithubApi\Api;
+namespace MPScholten\GitHubApi\Api;
 
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface;
-use MPScholten\GithubApi\Exception\GithubException;
-use MPScholten\GithubApi\ResponseDecoder;
+use MPScholten\GitHubApi\Exception\GithubException;
+use MPScholten\GitHubApi\ResponseDecoder;
 
 class AbstractApi
 {

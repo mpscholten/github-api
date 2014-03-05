@@ -1,6 +1,6 @@
 <?php
 
-namespace MPScholten\GithubApi\Api;
+namespace MPScholten\GitHubApi\Api;
 
 /**
  * This class provides several helpers for working with attributes.

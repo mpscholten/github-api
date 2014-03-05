@@ -1,6 +1,6 @@
 <?php
 
-namespace MPScholten\GithubApi\Auth;
+namespace MPScholten\GitHubApi\Auth;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace MPScholten\GithubApi\Api\Search;
+namespace MPScholten\GitHubApi\Api\Search;
 
-use MPScholten\GithubApi\Api\AbstractApi;
-use MPScholten\GithubApi\Api\PaginationIterator;
-use MPScholten\GithubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\Api\AbstractApi;
+use MPScholten\GitHubApi\Api\PaginationIterator;
+use MPScholten\GitHubApi\Api\Repository\Repository;
 
 class Search extends AbstractApi
 {
