@@ -24,6 +24,7 @@ class Github
         $this->client = $client;
         $this->client->addSubscriber($authenticationMethod);
         $this->client->setBaseUrl('https://api.github.com/');
+        $this->client->setDefaultOption('headers/Accept', 'application/vnd.github.v3');
     }
 
     /**
