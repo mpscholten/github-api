@@ -3,7 +3,6 @@
 namespace MPScholten\GitHubApi\Api\User;
 
 use MPScholten\GitHubApi\Api\Repository\Repository;
-use MPScholten\GitHubApi\Tests\Api\User\EmailTest;
 
 /**
  * This class is mostly the same as User, the only difference is that it also loads some
@@ -60,6 +59,7 @@ class CurrentUser extends User
     /**
      * List email addresses for a user
      *
+     * @see getPrimaryEmail()
      * @link http://developer.github.com/v3/users/emails/
      * @return Email[]
      */
