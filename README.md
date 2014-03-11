@@ -16,11 +16,11 @@ You need php 5.4 or higher to use this library.
 ----
 
 ## Get started ##
-Install via composer: `composer require mpscholten/github-api v0.1`
+Install via composer: `composer require mpscholten/github-api v0.3`
 ```json
 {
     "require": {
-        "mpscholten/github-api": "v0.1"
+        "mpscholten/github-api": "v0.3"
     }
 }
 ```
@@ -73,6 +73,16 @@ $user->getOrganizations();
 // list the users repositories
 foreach ($user->getRepositories() as $repository) {
     echo $repository->getName();
+}
+
+// with the 'user:email' oauth scope
+$user->getPrimaryEmail();
+$user->getEmails();
+
+foreach ($user->getEmails() as $email) {
+    if ($email->isVerified()) {
+        echo $email;
+    }
 }
 ```
 
