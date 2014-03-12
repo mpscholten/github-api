@@ -19,11 +19,18 @@ class Github
 {
     private $client;
 
-    public function __construct(Client $client, AuthenticationMethodInterface $authenticationMethod)
+    /**
+     * @see Github::create()
+     *
+     * @param Client $client The http client
+     * @param AuthenticationMethodInterface $authenticationMethod
+     * @param string $endpoint The GitHub-API's endpoint, in most cases https://api.github.com/
+     */
+    public function __construct(Client $client, AuthenticationMethodInterface $authenticationMethod, $endpoint)
     {
         $this->client = $client;
         $this->client->addSubscriber($authenticationMethod);
-        $this->client->setBaseUrl('https://api.github.com/');
+        $this->client->setBaseUrl($endpoint);
         $this->client->setDefaultOption('headers/Accept', 'application/vnd.github.v3');
     }
 
@@ -61,7 +68,7 @@ class Github
             $authenticationMethod = new NullAuthenticationMethod();
         }
 
-        return new Github($client, $authenticationMethod);
+        return new Github($client, $authenticationMethod, 'https://api.github.com/');
     }
 
     /**
