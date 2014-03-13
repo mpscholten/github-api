@@ -19,6 +19,9 @@ class Github
 {
     private $client;
 
+    private $currentUser;
+    private $search;
+
     /**
      * @see Github::create()
      *
@@ -76,8 +79,11 @@ class Github
      */
     public function getCurrentUser()
     {
-        $api = new CurrentUser($this->client);
-        return $api;
+        if ($this->currentUser === null) {
+            $this->currentUser = new CurrentUser($this->client);
+        }
+
+        return $this->currentUser;
     }
 
     /**
@@ -85,8 +91,11 @@ class Github
      */
     public function getSearch()
     {
-        $api = new Search($this->client);
-        return $api;
+        if ($this->search === null) {
+            $this->search = new Search($this->client);
+        }
+
+        return $this->search;
     }
 
     /**
