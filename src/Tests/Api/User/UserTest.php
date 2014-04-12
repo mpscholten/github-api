@@ -10,6 +10,13 @@ use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class UserTest extends AbstractTestCase
 {
+    private $httpClient;
+
+    protected function setUp()
+    {
+        $this->httpClient = $this->createHttpClientMock();
+    }
+
     public function testPopulateWithExampleData()
     {
         $user = new User();
@@ -27,10 +34,9 @@ class UserTest extends AbstractTestCase
 
     public function testLazyLoadingOrganizations()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_organizations.json')));
+        $this->mockSimpleRequest($this->httpClient, 'get', json_encode($this->loadJsonFixture('fixture_organizations.json')));
 
-        $user = new User($httpClient);
+        $user = new User($this->httpClient);
         $user->populate($this->loadJsonFixture('fixture_user.json'));
 
 
@@ -40,29 +46,24 @@ class UserTest extends AbstractTestCase
 
     public function testLazyLoadingRepositories()
     {
-        $httpClient = $this->createHttpClientMock();
         $responseBody = json_encode($this->loadJsonFixture('fixture_repositories.json'));
-        $this->mockSimpleRequest($httpClient, 'get', $responseBody);
+        $this->mockSimpleRequest($this->httpClient, 'get', $responseBody);
 
 
-        $user = new User($httpClient);
+        $user = new User($this->httpClient);
         $user->populate($this->loadJsonFixture('fixture_user.json'));
 
         $repositories = $user->getRepositories();
         $this->assertInstanceOf('MPScholten\GitHubApi\Api\PaginationIterator', $repositories);
         $this->assertCount(1, $repositories);
-
-        foreach ($repositories as $repository) {
-            $this->assertInstanceOf(Repository::CLASS_NAME, $repository);
-        }
+        $this->assertContainsOnlyInstancesOf(Repository::CLASS_NAME, $repositories);
     }
 
     public function testLazyLoadUserByLogin()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_user.json')));
+        $this->mockSimpleRequest($this->httpClient, 'get', json_encode($this->loadJsonFixture('fixture_user.json')));
 
-        $user = new User($httpClient);
+        $user = new User($this->httpClient);
         $user->populate(['login' => 'octocat']);
 
         $this->assertEquals(1, $user->getId());
@@ -70,10 +71,9 @@ class UserTest extends AbstractTestCase
 
     public function testLazyLoadUserByUrl()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_user.json')));
+        $this->mockSimpleRequest($this->httpClient, 'get', json_encode($this->loadJsonFixture('fixture_user.json')));
 
-        $user = new User($httpClient);
+        $user = new User($this->httpClient);
         $user->populate(['url' => 'https://api.github.com/users/octocat']);
 
         $this->assertEquals(1, $user->getId());
@@ -110,15 +110,12 @@ class UserTest extends AbstractTestCase
 
     public function testLazyLoadFollowers()
     {
-        $httpClient = $this->createHttpClientMock();
         $expectedResponse = json_encode($this->loadJsonFixture('fixture_followers.json'));
-        $this->mockSimpleRequest($httpClient, 'get', $expectedResponse, 'https://api.github.com/users/octocat/followers');
+        $this->mockSimpleRequest($this->httpClient, 'get', $expectedResponse, 'https://api.github.com/users/octocat/followers');
 
-        $user = new User($httpClient);
+        $user = new User($this->httpClient);
         $user->populate($this->loadJsonFixture('fixture_user.json'));
 
-        foreach ($user->getFollowers() as $follower) {
-            $this->assertInstanceOf(User::CLASS_NAME, $follower);
-        }
+        $this->assertContainsOnlyInstancesOf(User::CLASS_NAME, $user->getFollowers());
     }
 }
