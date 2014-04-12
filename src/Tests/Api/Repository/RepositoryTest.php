@@ -12,6 +12,14 @@ use MPScholten\GitHubApi\Tests\AbstractTestCase;
 
 class RepositoryTest extends AbstractTestCase
 {
+    private $httpClient;
+
+    protected function setUp()
+    {
+        $this->httpClient = $this->createHttpClientMock();
+    }
+
+
     public function testPopulateWithExampleData()
     {
         $repository = new Repository();
@@ -32,10 +40,10 @@ class RepositoryTest extends AbstractTestCase
 
     public function testLazyLoadingCommits()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture2.json')));
+        $expectedResponse = json_encode($this->loadJsonFixture('fixture2.json'));
+        $this->mockSimpleRequest($this->httpClient, 'get', $expectedResponse, 'https://api.github.com/repos/octocat/Hello-World/commits');
 
-        $repository = new Repository($httpClient);
+        $repository = new Repository($this->httpClient);
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getCommits() as $commit) {
@@ -45,10 +53,10 @@ class RepositoryTest extends AbstractTestCase
 
     public function testLazyLoadingCollaborators()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture3.json')));
+        $expectedResponse = json_encode($this->loadJsonFixture('fixture3.json'));
+        $this->mockSimpleRequest($this->httpClient, 'get', $expectedResponse, 'https://api.github.com/repos/octocat/Hello-World/collaborators');
 
-        $repository = new Repository($httpClient);
+        $repository = new Repository($this->httpClient);
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getCollaborators() as $collaborator) {
@@ -58,10 +66,10 @@ class RepositoryTest extends AbstractTestCase
 
     public function testLazyLoadingBranches()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_branches.json')));
+        $expectedResponse = json_encode($this->loadJsonFixture('fixture_branches.json'));
+        $this->mockSimpleRequest($this->httpClient, 'get', $expectedResponse, 'https://api.github.com/repos/octocat/Hello-World/branches');
 
-        $repository = new Repository($httpClient);
+        $repository = new Repository($this->httpClient);
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getBranches() as $branch) {
@@ -71,10 +79,10 @@ class RepositoryTest extends AbstractTestCase
 
     public function testLazyLoadingKeys()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture4.json')));
+        $expectedResponse = json_encode($this->loadJsonFixture('fixture4.json'));
+        $this->mockSimpleRequest($this->httpClient, 'get', $expectedResponse, 'https://api.github.com/repos/octocat/Hello-World/keys');
 
-        $repository = new Repository($httpClient);
+        $repository = new Repository($this->httpClient);
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getKeys() as $key) {
@@ -90,10 +98,10 @@ class RepositoryTest extends AbstractTestCase
 
     public function testLazyLoadingReleases()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'get', json_encode($this->loadJsonFixture('fixture_releases.json')));
+        $expectedResponse = json_encode($this->loadJsonFixture('fixture_releases.json'));
+        $this->mockSimpleRequest($this->httpClient, 'get', $expectedResponse, 'https://api.github.com/repos/octocat/Hello-World/releases');
 
-        $repository = new Repository($httpClient);
+        $repository = new Repository($this->httpClient);
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         foreach ($repository->getReleases() as $release) {
@@ -103,10 +111,9 @@ class RepositoryTest extends AbstractTestCase
 
     public function testAddKey()
     {
-        $httpClient = $this->createHttpClientMock();
-        $this->mockSimpleRequest($httpClient, 'post', json_encode($this->loadJsonFixture('fixture_key.json')));
+        $this->mockSimpleRequest($this->httpClient, 'post', json_encode($this->loadJsonFixture('fixture_key.json')));
 
-        $repository = new Repository($httpClient);
+        $repository = new Repository($this->httpClient);
         $repository->populate($this->loadJsonFixture('fixture_repository.json'));
 
         $key = new Key();
