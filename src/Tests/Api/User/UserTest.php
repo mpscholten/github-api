@@ -107,4 +107,18 @@ class UserTest extends AbstractTestCase
         $organization = new User();
         $organization->getUrl('invalid type');
     }
+
+    public function testLazyLoadFollowers()
+    {
+        $httpClient = $this->createHttpClientMock();
+        $expectedResponse = json_encode($this->loadJsonFixture('fixture_followers.json'));
+        $this->mockSimpleRequest($httpClient, 'get', $expectedResponse, 'https://api.github.com/users/octocat/followers');
+
+        $user = new User($httpClient);
+        $user->populate($this->loadJsonFixture('fixture_user.json'));
+
+        foreach ($user->getFollowers() as $follower) {
+            $this->assertInstanceOf(User::CLASS_NAME, $follower);
+        }
+    }
 }

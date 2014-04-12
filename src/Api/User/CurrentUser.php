@@ -3,6 +3,7 @@
 namespace MPScholten\GitHubApi\Api\User;
 
 use MPScholten\GitHubApi\Api\Repository\Repository;
+use MPScholten\GitHubApi\TemplateUrlGenerator;
 
 /**
  * This class is mostly the same as User, the only difference is that it also loads some
@@ -96,5 +97,10 @@ class CurrentUser extends User
         }
 
         throw new \RuntimeException('There is not primary email');
+    }
+
+    protected function loadFollowers()
+    {
+        return $this->createPaginationIterator('user/followers', User::CLASS_NAME);
     }
 }

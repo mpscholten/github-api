@@ -16,6 +16,7 @@ class User extends AbstractModelApi
 
     private $organizations;
     private $repositories;
+    private $followers;
 
     protected function load()
     {
@@ -154,5 +155,26 @@ class User extends AbstractModelApi
     public function getEmail()
     {
         return $this->getAttribute('email');
+    }
+
+    protected function loadFollowers()
+    {
+        $url = TemplateUrlGenerator::generate($this->getAttribute('followers_url'), []);
+        return $this->createPaginationIterator($url, User::CLASS_NAME);
+    }
+
+    /**
+     * @link https://developer.github.com/v3/users/followers/
+     * List the user's followers
+     *
+     * @return User[]
+     */
+    public function getFollowers()
+    {
+        if ($this->followers === null) {
+            $this->followers = $this->loadFollowers();
+        }
+
+        return $this->followers;
     }
 }
