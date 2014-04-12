@@ -28,7 +28,7 @@ class Repository extends AbstractModelApi
             $url = $this->getAttribute('url');
         } elseif ($this->isAttributeLoaded('owner') && $this->isAttributeLoaded('name')) {
             $url = TemplateUrlGenerator::generate(
-                '/repos/{/owner}/{/repo}',
+                '/repos/{/owner}/{/name}',
                 ['owner' => $this->getOwner()->getLogin(), 'name' => $this->getName()]
             );
         } else {
