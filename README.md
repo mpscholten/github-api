@@ -130,6 +130,21 @@ foreach ($repository->getReleases() as $release) {
 }
 ```
 
+### Issue API ###
+```php
+foreach ($repository->getIssues() as $issue) {
+    $issue->getLabels()->count();
+    
+    $issue->getNumber(); // 2
+    $issue->getAuthor()->getLogin(); // "mpscholten"
+    $issue->getTitle(); // "Add Issue-API"
+    $issue->getBody();
+    
+    $issue->isOpen();
+    $issue->isClosed();
+    $issue->getState();
+}
+```
 
 ----
 
