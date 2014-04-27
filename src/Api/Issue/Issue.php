@@ -5,6 +5,9 @@ namespace MPScholten\GitHubApi\Api\Issue;
 use MPScholten\GitHubApi\Api\AbstractModelApi;
 use MPScholten\GitHubApi\Api\User\User;
 
+/**
+ * @link https://developer.github.com/v3/issues/
+ */
 class Issue extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;

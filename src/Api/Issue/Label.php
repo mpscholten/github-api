@@ -4,6 +4,9 @@ namespace MPScholten\GitHubApi\Api\Issue;
 
 use MPScholten\GitHubApi\Api\AbstractModelApi;
 
+/**
+ * @link https://developer.github.com/v3/issues/labels/
+ */
 class Label extends AbstractModelApi
 {
     const CLASS_NAME = __CLASS__;
