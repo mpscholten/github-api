@@ -3,6 +3,7 @@
 namespace MPScholten\GitHubApi\Api\Repository;
 
 use MPScholten\GitHubApi\Api\AbstractModelApi;
+use MPScholten\GitHubApi\Api\Issue\Issue;
 use MPScholten\GitHubApi\Api\User\User;
 use MPScholten\GitHubApi\TemplateUrlGenerator;
 
@@ -17,6 +18,7 @@ class Repository extends AbstractModelApi
     protected $hooks;
     protected $branches;
     protected $releases;
+    protected $issues;
 
 
     /**
@@ -166,6 +168,25 @@ class Repository extends AbstractModelApi
         return $this->releases;
     }
 
+    protected function loadIssues()
+    {
+        $url = TemplateUrlGenerator::generate($this->getAttribute('issues_url'), ['number' => null]);
+        return $this->createPaginationIterator($url, Issue::CLASS_NAME);
+    }
+
+    /**
+     * @link https://developer.github.com/v3/issues/#list-issues-for-a-repository
+     *
+     * @return Issue[]
+     */
+    public function getIssues()
+    {
+        if ($this->issues === null) {
+            $this->issues = $this->loadIssues();
+        }
+
+        return $this->issues;
+    }
     /**
      * @return string The default branch of the repository, in most cases this is "master"
      */
@@ -241,5 +262,4 @@ class Repository extends AbstractModelApi
     {
         return $this->getAttribute('ssh_url');
     }
-
 }
