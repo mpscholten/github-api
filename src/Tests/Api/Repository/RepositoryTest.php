@@ -4,6 +4,8 @@
 namespace MPScholten\GitHubApi\Tests\Api\Repository;
 
 
+use MPScholten\GitHubApi\Api\Issue\Issue;
+use MPScholten\GitHubApi\Api\Issue\Label;
 use MPScholten\GitHubApi\Api\Repository\Branch;
 use MPScholten\GitHubApi\Api\Repository\Key;
 use MPScholten\GitHubApi\Api\Repository\Release;
@@ -108,6 +110,20 @@ class RepositoryTest extends AbstractTestCase
             $this->assertInstanceOf(Release::CLASS_NAME, $release);
         }
     }
+
+    public function testLazyLoadingIssues()
+    {
+        $expectedResponse = json_encode($this->loadJsonFixture('fixture_issues.json'));
+        $this->mockSimpleRequest($this->httpClient, 'get', $expectedResponse, 'https://api.github.com/repos/octocat/Hello-World/issues');
+
+        $repository = new Repository($this->httpClient);
+        $repository->populate($this->loadJsonFixture('fixture_repository.json'));
+
+        foreach ($repository->getIssues() as $issue) {
+            $this->assertInstanceOf(Issue::CLASS_NAME, $issue);
+        }
+    }
+
 
     public function testAddKey()
     {

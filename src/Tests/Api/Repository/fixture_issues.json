@@ -1,0 +1,47 @@
+[
+    {
+        "url": "https://api.github.com/repos/mpscholten/github-api/issues/2",
+        "labels_url": "https://api.github.com/repos/mpscholten/github-api/issues/2/labels{/name}",
+        "comments_url": "https://api.github.com/repos/mpscholten/github-api/issues/2/comments",
+        "events_url": "https://api.github.com/repos/mpscholten/github-api/issues/2/events",
+        "html_url": "https://github.com/mpscholten/github-api/issues/2",
+        "id": 31390419,
+        "number": 2,
+        "title": "Add Issue-API",
+        "user": {
+            "login": "mpscholten",
+            "id": 2072185,
+            "avatar_url": "https://avatars.githubusercontent.com/u/2072185?",
+            "gravatar_id": "73c6c28e88ab287ef9d3be6b2bf1c4fe",
+            "url": "https://api.github.com/users/mpscholten",
+            "html_url": "https://github.com/mpscholten",
+            "followers_url": "https://api.github.com/users/mpscholten/followers",
+            "following_url": "https://api.github.com/users/mpscholten/following{/other_user}",
+            "gists_url": "https://api.github.com/users/mpscholten/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/mpscholten/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/mpscholten/subscriptions",
+            "organizations_url": "https://api.github.com/users/mpscholten/orgs",
+            "repos_url": "https://api.github.com/users/mpscholten/repos",
+            "events_url": "https://api.github.com/users/mpscholten/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/mpscholten/received_events",
+            "type": "User",
+            "site_admin": false
+        },
+        "labels": [
+            {
+                "url": "https://api.github.com/repos/mpscholten/github-api/labels/enhancement",
+                "name": "enhancement",
+                "color": "84b6eb"
+            }
+        ],
+        "state": "open",
+        "assignee": null,
+        "milestone": null,
+        "comments": 0,
+        "created_at": "2014-04-12T20:17:17Z",
+        "updated_at": "2014-04-12T20:17:17Z",
+        "closed_at": null,
+        "body": "https://developer.github.com/v3/issues/"
+    }
+]
+
